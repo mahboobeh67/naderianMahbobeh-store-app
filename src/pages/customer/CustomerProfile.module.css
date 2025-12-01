@@ -1,0 +1,69 @@
+.profileContainer {
+  max-width: 500px;
+  margin: 30px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  font-family: Vazir, sans-serif;
+}
+
+.profileContainer h2 {
+  color: #005c55;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profileField {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+
+.profileField label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #005c55;
+}
+
+.profileField input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.profileField input:focus {
+  border-color: #005c55;
+}
+
+.buttonWrapper {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.buttonWrapper button {
+  background-color: #005c55;
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.buttonWrapper button:hover {
+  background-color: #007a70;
+}
+
+.buttonWrapper button:nth-child(2) {
+  background-color: #999;
+}
+
+.buttonWrapper button:nth-child(2):hover {
+  background-color: #777;
+}

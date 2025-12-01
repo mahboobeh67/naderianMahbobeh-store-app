@@ -1,9 +1,9 @@
 import express from 'express';
 import cors from 'cors';
-import productRoutes from './routes/productRoutes.js';
-import authRoutes from './routes/authRoutes.js';
+import productRoutes from '../routes/productRoutes.js';
+import authRoutes from '../routes/authRoutes.js';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from './swagger/swagger.json' assert { type: 'json' };
+import swaggerDocument from '../swagger/swagger.json' assert { type: 'json' };
 
 const app = express();
 let PORT = process.env.PORT || 3000;

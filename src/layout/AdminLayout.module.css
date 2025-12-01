@@ -1,0 +1,27 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+  background: #f7f7f7;
+}
+
+.mainArea {
+  display: flex;
+  flex-direction: column;
+}
+
+.pageContent {
+  padding: 20px;
+}
+
+/* حالت Sidebar فشرده */
+.wrapper.collapsed {
+  grid-template-columns: 80px 1fr;
+}
+
+/* موبایل */
+@media (max-width: 768px) {
+  .wrapper {
+    grid-template-columns: 0 1fr;
+  }
+}

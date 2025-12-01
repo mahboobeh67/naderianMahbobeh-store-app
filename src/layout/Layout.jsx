@@ -1,14 +1,19 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
+import styles from "./Layout.module.css";
 
 const Layout = () => {
   return (
     <>
       <Header />
-      <main style={{ minHeight: "80vh", padding: "20px" }}>
-        <Outlet />
+
+      <main className={styles.mainWrapper}>
+        <div className={styles.container}>
+          <Outlet />
+        </div>
       </main>
+
       <Footer />
     </>
   );

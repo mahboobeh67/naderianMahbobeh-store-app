@@ -1,0 +1,48 @@
+/* متن پنهان بدون تغییر چیدمان */
+.hiddenText {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  visibility: hidden;
+  width: 0;
+  overflow: hidden;
+}
+
+/* متن قابل نمایش */
+.visibleText {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+/* ----- لیست ----- */
+.nav li {
+  margin: 0;
+  height: 44px;               /* ارتفاع ثابت */
+  display: flex;
+  align-items: center;
+}
+
+.nav a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;         /* padding ثابت */
+  height: 100%;               /* بدون تغییر */
+  border-radius: 6px;
+  transition: background 0.15s ease;
+}
+
+/* ----- logout section ----- */
+.logoutBtn {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 14px;
+  height: 44px;               /* ثابت */
+  border: none;
+  border-radius: 6px;
+  background: none;
+  color: white;
+  cursor: pointer;
+}
