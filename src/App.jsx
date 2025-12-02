@@ -10,7 +10,7 @@ import OrdersPage from "./pages/customer/OrdersPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Layout from "./layout/Layout";
 import CustomerProfile from "./pages/customer/CustomerProfile";
-import AdminLayout from "./layout/AdminLayout";
+import AdminLayout from "./layout/admin/AdminLayout";
 
 const App = () => {
   return (

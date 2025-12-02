@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styles from "./AdminSidebar.module.css";
-import { useAuth } from "../context/AuthContext";
+
+import { useAuth } from "../../context/AuthContext";
 
 function AdminSidebar({ isCollapsed }) {
   const { logout } = useAuth();

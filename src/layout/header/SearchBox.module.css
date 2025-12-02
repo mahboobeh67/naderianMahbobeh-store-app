@@ -1,0 +1,28 @@
+.searchBox {
+  display: flex;
+  align-items: center;
+  justify-content:first baseline;
+  gap: 10px;
+  flex: 1;
+  max-width: 250px;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 10px 14px;
+  border-radius: 10px;
+  direction: rtl;
+}
+
+.searchBox input {
+  
+  flex: 1;
+  border: none;
+  outline: none;
+ 
+}
+
+.icon {
+   
+  font-size: 22px;
+  cursor: pointer;
+  
+}
