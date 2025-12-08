@@ -15,14 +15,15 @@ import AdminLayout from "./layout/admin/AdminLayout";
 const App = () => {
   return (
     <Routes>
-      {/* مسیر صحیح لاگین ادمین */}
       <Route path="/admin/login" element={<AdminLoginPage />} />
 
-      {/* پنل ادمین - ساختار درست ProtectedRoute */}
       <Route path="/admin" element={<ProtectedRoute role="admin" />}>
         {/* لایه ادمین */}
         <Route element={<AdminLayout />}>
-          <Route path="dashboard" element={<DashboardPage />} />
+          <Route path="dashboard"
+         
+          
+          element={<DashboardPage />} />
           <Route path="manage" element={<ManageProductPage />} />
         </Route>
       </Route>

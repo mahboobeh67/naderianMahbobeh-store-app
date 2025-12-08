@@ -1,4 +1,9 @@
 export * from "./categoriesService";
-export * from "./api";
+
 export * from "./productService";
+
+export * from "./authService"
+export * from "./dashboardService"
+export * from "./userService"
+
 

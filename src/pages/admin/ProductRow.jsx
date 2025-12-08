@@ -2,8 +2,9 @@ import { useState } from "react";
 import ConfirmDialog from "../../components/ui/ConfirmDialog";
 import ProductFormModal from "./ProductFormModal";
 import productService from "../../services/productService";
-
 import { useQueryClient } from "@tanstack/react-query";
+
+import styles from "./ProductRow.module.css";
 
 function ProductRow({ product }) {
   const [showEdit, setShowEdit] = useState(false);
@@ -14,18 +15,35 @@ function ProductRow({ product }) {
   async function handleDelete() {
     await productService.delete(product.id);
     qc.invalidateQueries(["products"]);
+    setShowConfirm(false);
   }
 
   return (
-    <tr>
-      <td>{product.title}</td>
-      <td>{product.price.toLocaleString()}</td>
-      <td>{product.inventory}</td>
-      <td>{product.id}</td>
-      <td>
-        <button onClick={() => setShowEdit(true)}>ویرایش</button>
-        <button onClick={() => setShowConfirm(true)}>حذف</button>
-      </td>
+    <>
+      <tr className={styles.row}>
+        <td>{product.title}</td>
+        <td>{product.price.toLocaleString()}</td>
+        <td className={product.inventory > 0 ? styles.inStock : styles.outStock}>
+          {product.inventory}
+        </td>
+        <td>{product.id}</td>
+
+        <td className={styles.actions}>
+          <button
+            className={styles.editBtn}
+            onClick={() => setShowEdit(true)}
+          >
+            ویرایش
+          </button>
+
+          <button
+            className={styles.deleteBtn}
+            onClick={() => setShowConfirm(true)}
+          >
+            حذف
+          </button>
+        </td>
+      </tr>
 
       {showEdit && (
         <ProductFormModal
@@ -36,12 +54,12 @@ function ProductRow({ product }) {
 
       {showConfirm && (
         <ConfirmDialog
-          message={`حذف محصول "${product.title}"؟`}
+          message={`حذف محصول «${product.title}»؟`}
           onCancel={() => setShowConfirm(false)}
           onConfirm={handleDelete}
         />
       )}
-    </tr>
+    </>
   );
 }
 

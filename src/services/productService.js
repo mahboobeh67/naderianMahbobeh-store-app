@@ -1,16 +1,28 @@
-import { API_CONFIG, apiUrl } from "@/config";
+import apiClient from "@/lib/apiClient";
 
-const PRODUCTS_URL = API_CONFIG.ENDPOINTS.PRODUCTS;
+const productService = {
+  getList(params) {
+    return apiClient.get("/products", { params }).then(r => r.data);
+  },
 
-export async function fetchProducts(params = {}) {
-  const query = new URLSearchParams(params).toString();
-  const url = apiUrl(`${PRODUCTS_URL}?${query}`);
+  getOne(id) {
+    return apiClient.get(`/products/${id}`).then(r => r.data);
+  },
 
-  const res = await fetch(url);
-  if (!res.ok) throw new Error("Failed to fetch products");
+  create(data) {
+    return apiClient.post("/products", data).then(r => r.data);
+  },
 
-  return res.json();
-}
+  update(id, data) {
+    return apiClient.put(`/products/${id}`, data).then(r => r.data);
+  },
 
-export default fetchProducts;
+  delete(id) {
+    return apiClient.delete(`/products/${id}`).then(r => r.data);
+  },
+};
+
+export default productService
+
+
 

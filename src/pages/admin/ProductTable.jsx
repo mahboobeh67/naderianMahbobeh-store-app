@@ -1,21 +1,38 @@
 import ProductRow from "./ProductRow";
+import styles from "./ProductTable.module.css";
 
 function ProductTable({ products, loading, error, onRetry }) {
-
-  if (loading) return <p>در حال بارگذاری...</p>;
-
-  if (error)
+  // Loading: Skeleton Loader
+  if (loading) {
     return (
-      <div>
-        خطا در دریافت اطلاعات
-        <button onClick={onRetry}>تلاش مجدد</button>
+      <div className={styles.skeletonWrapper}>
+        {[...Array(5)].map((_, i) => (
+          <div key={i} className={styles.skeletonLine} />
+        ))}
       </div>
     );
+  }
 
-  if (!products.length) return <p>هیچ محصولی یافت نشد</p>;
+  // Error State
+  if (error) {
+    return (
+      <div className={styles.errorBox}>
+        <p>خطا در دریافت اطلاعات محصولات</p>
+        <button className={styles.retryBtn} onClick={onRetry}>
+          تلاش مجدد
+        </button>
+      </div>
+    );
+  }
 
+  // Empty State
+  if (!products.length) {
+    return <p className={styles.emptyText}>هیچ محصولی یافت نشد</p>;
+  }
+
+  // Table
   return (
-    <table>
+    <table className={styles.table}>
       <thead>
         <tr>
           <th>نام</th>
@@ -36,3 +53,4 @@ function ProductTable({ products, loading, error, onRetry }) {
 }
 
 export default ProductTable;
+

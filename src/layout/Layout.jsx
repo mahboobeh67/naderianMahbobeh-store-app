@@ -1,11 +1,14 @@
 import { Outlet } from "react-router-dom";
 import useCategories from "../../src/hooks/useCategories.js";
-
+import { useAuthUser } from "@/hooks/useAuthUser";
 import Footer from "./Footer.jsx";
 import styles from "./Layout.module.css";
 import Header from "./header/Header.jsx";
+import Sidebar from "./Sidebar.jsx";
 
 const Layout = () => {
+
+  const { user } = useAuthUser();
   const {
     data: categories = [],
     isLoading,
@@ -13,11 +16,14 @@ const Layout = () => {
   } = useCategories();
 
   return (
-    <>
-      <Header
+    <div className={styles.layout}>
+
+  <Header
+      user={user}
+    
         categories={categories}
         cartCount={2}
-        user={null}
+
         isCategoriesLoading={isLoading}
         categoriesError={error}
       />
@@ -26,10 +32,14 @@ const Layout = () => {
         <div className={styles.container}>
           <Outlet />
         </div>
+        <Sidebar />
       </main>
 
       <Footer />
-    </>
+
+    </div>
+    
+   
   );
 };
 

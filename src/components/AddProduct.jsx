@@ -1,8 +1,12 @@
 import React from 'react'
 
-function AddProduct() {
+function AddProduct({ setOpenModal}) {
   return (
-    <div>AddProduct</div>
+    <div>
+
+
+      <button onClick={(() => setOpenModal(true))}>add</button>
+    </div>
   )
 }
 

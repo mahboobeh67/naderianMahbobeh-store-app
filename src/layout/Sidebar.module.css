@@ -1,0 +1,41 @@
+.sidebar {
+  width: 240px;
+  background: radial-gradient(circle,rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 68%);
+  color: rgb(9, 222, 16);
+  padding: 10px 8px;
+  height: 100%;
+  position: sticky;
+  top: 0;
+  
+  
+  font-family: "Vazirmatn", sans-serif;
+}
+
+.title {
+    color: rgb(1, 15, 1);
+  font-size: 22px;
+  margin-bottom: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  padding: 6px 5px;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-align: center;
+}
+
+.item:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}

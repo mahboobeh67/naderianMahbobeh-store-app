@@ -11,5 +11,10 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+ server: {
+    port: 3001, // هر پورتی دوست داری
+    host: true, // اگه خواستی روی شبکه هم بالا بیاد
+  },
+
 });
 

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import productService from "../src/services/productService";
+import productService from "@/services/productService";
 
-function useProducts(params) {
+export default function useProducts(params) {
   return useQuery({
     queryKey: ["products", params],
     queryFn: () => productService.getList(params),
@@ -9,5 +9,4 @@ function useProducts(params) {
   });
 }
 
-export default useProducts;
 

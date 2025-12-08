@@ -1,18 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { getCategories } from "../services/categoriesService";
+import { categoryService } from "@/services/categoryService";
 
 export default function useCategories() {
   return useQuery({
     queryKey: ["categories"],
-    queryFn: getCategories,
-
+    queryFn: () => categoryService.getAll(),
     staleTime: 5 * 60 * 1000,
-    cacheTime: 10 * 60 * 1000,
-
-    retry: 2,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    refetchOnReconnect: true,
   });
 }
+
+
 

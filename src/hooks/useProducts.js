@@ -1,12 +1,15 @@
+// src/hooks/useProducts.js
 import { useQuery } from "@tanstack/react-query";
-import { fetchProducts } from "@/services/productService";
+import productService from "@/services/productService";
+import { mapProductList } from "@/mappers/productMapper";
 
-export default function useProducts() {
+export function useProducts(params) {
   return useQuery({
-    queryKey: ["products"],
-    queryFn: fetchProducts,
-    staleTime: 30000,
-    retry: 2,
+    queryKey: ["products", params],
+    queryFn: async () => {
+      const res = await productService.getList(params);
+      return mapProductList(res);
+    },
+    keepPreviousData: true,
   });
 }
-

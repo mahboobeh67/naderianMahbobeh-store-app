@@ -1,0 +1,45 @@
+.footer {
+ background: radial-gradient(circle,rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 68%);
+  color: #07cd2b;
+  padding: 10px 0;
+  margin-top: 10px;
+  text-align: center;
+  font-family: "Vazirmatn", sans-serif;
+  height: auto;
+  box-sizing: border-box;
+
+}
+
+.container {
+  width: 90%;
+  max-width: 700px;
+  margin: 0 auto;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.title {
+  font-size: 22px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.info {
+  font-size: 18px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.divider {
+  width: 50%;
+  margin: 10px auto;
+  height: 1px;
+  background-color: #cce7e5;
+  opacity: 0.7;
+}
+
+.copy {
+  font-size: 16px;
+  opacity: 0.85;
+  margin-top: 6px;
+}

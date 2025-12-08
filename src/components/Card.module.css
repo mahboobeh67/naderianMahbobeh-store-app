@@ -1,0 +1,46 @@
+.cardContainer{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* اندازه واقعی و منطقی کارت */
+.cardProduct{
+    display: flex;
+    flex-direction: column;
+    width: 241px;
+    height: 380px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.cardProduct .topCard{
+    height: 45%;
+    position: relative;
+}
+
+.cardProduct .bottomCard{
+    background-color: #bfbaba;
+    height: 55%;
+    padding: 10px;
+}
+
+.topCard .productImage {
+    position: absolute;
+    width: 240px;
+    height: auto;
+    top: 2px;
+    
+
+}
+
+.price{
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2rem;
+}

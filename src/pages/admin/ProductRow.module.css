@@ -1,0 +1,54 @@
+.row:hover {
+  background: #f9f9f9;
+}
+
+/* Inventory Styling */
+.inStock {
+  color: #005c55;
+  font-weight: 600;
+}
+
+.outStock {
+  color: #c40000;
+  font-weight: 600;
+}
+
+/* Actions column */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Edit Button */
+.editBtn {
+  background: #005c55;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-family: Vazirmatn, sans-serif;
+  font-size: 0.85rem;
+  transition: 0.2s;
+}
+
+.editBtn:hover {
+  background: #007c73;
+}
+
+/* Delete Button */
+.deleteBtn {
+  background: #d70000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-family: Vazirmatn, sans-serif;
+  font-size: 0.85rem;
+  transition: 0.2s;
+}
+
+.deleteBtn:hover {
+  background: #b00000;
+}

@@ -1,89 +1,98 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import {
+  loadTokens,
+  saveTokens,
+  clearTokens,
+  getAccessToken,
+} from "../services/tokenStorage";
+import apiClient from "@/lib/apiClient";
+
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [user, setUser] = useState(null);     // اطلاعات کاربر
+  const [loading, setLoading] = useState(true); // برای auto-login
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // ---------------------------------------------------
-  // مقدار اولیه: با localStorage اما به‌صورت امن‌تر
-  // ---------------------------------------------------
-  const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem("auth");
-    return saved ? JSON.parse(saved) : { role: "guest", token: null };
-  });
-
-  // ---------------------------------------------------
-  // ذخیره‌سازی خودکار هر بار تغییر user
-  // ---------------------------------------------------
+  // ===============================================
+  // 🟦 Auto Login هنگام رفرش صفحه (Load Tokens)
+  // ===============================================
   useEffect(() => {
-    localStorage.setItem("auth", JSON.stringify(user));
-  }, [user]);
+    const stored = loadTokens();
 
-  // ---------------------------------------------------
-  // login با نقش دلخواه: admin, customer, guest
-  // ---------------------------------------------------
-  const login = (role = "guest") => {
-    const mockToken = `${role}_token_mock`;
+    if (stored?.accessToken) {
+      setIsAuthenticated(true);
 
-    const newUser = {
-      role,
-      token: mockToken,
-    };
-
-    setUser(newUser);
-
-    // مسیر دینامیک بر اساس نقش
-    if (role === "admin") navigate("/admin/dashboard", { replace: true });
-    else if (role === "customer") navigate("/profile", { replace: true });
-    else navigate("/", { replace: true });
-  };
-
-  // ---------------------------------------------------
-  // Logout کامل
-  // ---------------------------------------------------
-  const logout = () => {
-    setUser({ role: "guest", token: null });
-    localStorage.removeItem("auth");
-    navigate("/login", { replace: true });
-  };
-
-  // ---------------------------------------------------
-  // Helper Methods (بسیار مهم)
-  // ---------------------------------------------------
-  const isAuthenticated = user.token !== null;
-  const isAdmin = user.role === "admin";
-  const isCustomer = user.role === "customer";
-
-  // ---------------------------------------------------
-  // Auto Redirect مثال:
-  // اگر کاربر لاگین باشد و برود /admin/login → بفرستش داشبورد
-  // ---------------------------------------------------
-  useEffect(() => {
-    if (isAdmin && location.pathname === "/admin/login") {
-      navigate("/admin/dashboard", { replace: true });
+      // Optional: گرفتن اطلاعات کاربر
+      fetchProfile();
+    } else {
+      setLoading(false);
     }
-  }, [location.pathname, isAdmin]);
+  }, []);
 
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        login,
-        logout,
-        isAuthenticated,
-        isAdmin,
-        isCustomer,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  // ============================
+  // 🟩 LOGIN FUNCTION
+  // ============================
+  async function login(username, password) {
+    const res = await apiClient.post("/auth/login", {
+      username,
+      password,
+    });
+
+    saveTokens(
+      res.data.accessToken,
+      res.data.refreshToken,
+      res.data.expiresAt
+    );
+
+    setIsAuthenticated(true);
+    fetchProfile();
+
+    return res.data;
+  }
+
+  // ============================
+  // 🟥 LOGOUT FUNCTION
+  // ============================
+  async function logout() {
+    try {
+      await apiClient.post("/auth/logout");
+    } catch {}
+
+    clearTokens();
+    setIsAuthenticated(false);
+    setUser(null);
+  }
+
+  // ============================
+  // 🟨 FETCH PROFILE (Protected)
+  // ============================
+  async function fetchProfile() {
+    try {
+      const res = await apiClient.get("/auth/profile");
+      setUser(res.data.user);
+    } catch {
+      // اگر توکن نامعتبر بود → logout
+      clearTokens();
+      setIsAuthenticated(false);
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const value = {
+    user,
+    loading,
+    isAuthenticated,
+    login,
+    logout,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-// برای مصرف
 export function useAuth() {
   return useContext(AuthContext);
 }
