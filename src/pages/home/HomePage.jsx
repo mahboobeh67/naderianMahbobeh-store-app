@@ -1,5 +1,5 @@
-import { useCategories } from "@/hooks";
-import { useProducts } from "@/hooks";
+import { useProducts, useCategories } from "@/hooks";
+
 import Pagination from "../../components/ui/Pagination";
 import { useState } from "react";
 import AddProduct from "../../components/AddProduct";

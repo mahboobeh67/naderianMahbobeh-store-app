@@ -1,20 +1,26 @@
-import tailwindcss from "@tailwindcss/vite";
-import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-import path from "path";
+import react from "@vitejs/plugin-react";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
 
-// https://vite.dev/config/
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
- server: {
-    port: 3001, // هر پورتی دوست داری
-    host: true, // اگه خواستی روی شبکه هم بالا بیاد
+server: {
+  port: 3001,
+  proxy: {
+    "/api": {
+      target: "http://localhost:3000",
+      changeOrigin: true,
+      secure: false,
+    },
   },
+},
 
 });
-

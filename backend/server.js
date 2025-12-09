@@ -33,13 +33,17 @@ app.use((req, res, next) => {
    CORS FIXED (CREDENTIALS + MULTI ORIGIN)
 ----------------------------------------- */
 
-app.use(cors({
-  origin: [/^http:\/\/localhost:\d+$/],
-
-  credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"],
-  methods: ["GET", "POST", "PUT", "DELETE"]
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3001", // vite dev
+      "http://127.0.0.1:3001",
+      "http://localhost:4173", // vite preview
+      "http://localhost:3003", // گاهی vite خودش تغییر پورت میده
+    ],
+    credentials: true,
+  })
+);
 
 
 

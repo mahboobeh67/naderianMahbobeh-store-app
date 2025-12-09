@@ -6,7 +6,10 @@ import {
 } from "./auth/tokenStorage";
 
 const apiClient = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL:
+    import.meta.env.MODE === "development"
+      ? "/api"                 // پراکسی Vite
+      : "http://localhost:3000/api", // حالت build و preview
   withCredentials: true,
 });
 

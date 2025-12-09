@@ -4,7 +4,10 @@ import { categoryService } from "@/services/categoryService";
 export default function useCategories() {
   return useQuery({
     queryKey: ["categories"],
-    queryFn: () => categoryService.getAll(),
+    queryFn: async () => {
+      const res = await categoryService.getAll();
+      return res.data;
+    },
     staleTime: 5 * 60 * 1000,
   });
 }

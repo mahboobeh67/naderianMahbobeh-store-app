@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('/fonts/Vazirmatn.woff2') format('woff2'),
+       url('/fonts/Vazirmatn.woff') format('woff');
+}
+
+     
+body {
+  font-family: 'Vazirmatn', 'B Nazanin', sans-serif;
+}

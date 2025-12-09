@@ -1,5 +1,4 @@
-// src/pages/ProductList.jsx
-import { useProducts } from "@/hooks/useProducts";
+import useProducts from "@/hooks/useProducts";
 
 function ProductList() {
   const { data, isLoading, error } = useProducts({
@@ -12,19 +11,26 @@ function ProductList() {
   if (isLoading) return <p>در حال بارگذاری...</p>;
   if (error) return <p>خطا در دریافت محصولات</p>;
 
+  if (!data) return <p>هنوز داده‌ای وجود ندارد</p>;
+
+  // بررسی اینکه data آرایه است یا آبجکت با items
+  const productList = Array.isArray(data) ? data : data.items || [];
+
   return (
     <div>
       <h2>لیست محصولات</h2>
 
-      {data.items.map((item) => (
+      {productList.map((item) => (
         <p key={item.id}>
           {item.name} - {item.price} تومان
         </p>
       ))}
 
-      <p>
-        صفحه {data.page} از {data.totalPages}
-      </p>
+      {data.page && (
+        <p>
+          صفحه {data.page} از {data.totalPages}
+        </p>
+      )}
     </div>
   );
 }
