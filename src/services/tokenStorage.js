@@ -1,4 +1,3 @@
-// بهترین معماری: ترکیب حافظه + localStorage
 
 let memoryTokens = {
   accessToken: null,

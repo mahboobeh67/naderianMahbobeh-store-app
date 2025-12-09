@@ -1,9 +1,7 @@
 // src/controllers/authController.js
 
-import { tokenService } from "../../../src/services/tokenService.js";
 
-// یک دیتابیس فیک برای کاربر
-// در پروژه واقعی → میره DB
+
 const fakeUser = {
   id: "1",
   username: "test",

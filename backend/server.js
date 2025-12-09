@@ -1,6 +1,8 @@
+
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger/swagger.json' with { type: 'json' };
 
@@ -15,36 +17,34 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use((req, res, next) => {
+  const originalSet = res.setHeader.bind(res);
+
+  res.setHeader = (key, value) => {
+    if (key.toLowerCase().includes("access-control")) {
+      console.log("👀 CORS SET:", key, "=", value, "| Route:", req.method, req.originalUrl);
+    }
+    return originalSet(key, value);
+  };
+
+  next();
+});
 /* ----------------------------------------
    CORS FIXED (CREDENTIALS + MULTI ORIGIN)
 ----------------------------------------- */
 
-// const allowedOrigins = [
-//   "http://localhost:3000",
-//   "http://localhost:3001",
-//   "http://localhost:3002",
-//   "http://localhost:3003",
-//   "http://127.0.0.1:3000",
-//   "http://127.0.0.1:3001",
-//   "http://127.0.0.1:3002",
-//   "http://127.0.0.1:3003",
-// ];
+app.use(cors({
+  origin: [/^http:\/\/localhost:\d+$/],
 
-// app.use(
-//   cors({
-//     origin: function (origin, callback) {
-//       if (!origin || allowedOrigins.includes(origin)) {
-//         return callback(null, true);
-//       }
-//       return callback(new Error("Not allowed by CORS: " + origin));
-//     },
-//     credentials: true,
-//     allowedHeaders: ["Content-Type", "Authorization"],
-//     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-//   })
-// );
-app.use(cors());
+  credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET", "POST", "PUT", "DELETE"]
+}));
+
+
+
 app.use(express.json());
+app.use(cookieParser()); // اضافه کردن cookie-parser
 
 /* ----------------------------------------
    ROUTES
@@ -87,4 +87,5 @@ function startServer(port) {
 }
 
 startServer(PORT);
+
 
