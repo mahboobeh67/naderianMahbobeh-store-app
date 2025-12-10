@@ -1,0 +1,55 @@
+/* ROOT */
+.container {
+  position: fixed;
+  display: flex;
+  pointer-events: none;
+  padding: 12px;
+  z-index: 9999;
+  gap: 8px;
+}
+
+/* ---------- Positions ---------- */
+
+/* بالا */
+.topLeft {
+  top: 16px;
+  left: 16px;
+}
+
+.topCenter {
+  top: 16px;
+  left: 50%;
+  transform: -50% 0;
+}
+
+.topRight {
+  top: 16px;
+  right: 16px;
+}
+
+/* پایین */
+.bottomLeft {
+  bottom: 16px;
+  left: 16px;
+}
+
+.bottomCenter {
+  bottom: 16px;
+  left: 50%;
+  transform: -50% 0;
+}
+
+.bottomRight {
+  bottom: 16px;
+  right: 16px;
+}
+
+/* ---------- Stack Direction ---------- */
+
+.stackTop {
+  flex-direction: column-reverse;
+}
+
+.stackBottom {
+  flex-direction: column;
+}

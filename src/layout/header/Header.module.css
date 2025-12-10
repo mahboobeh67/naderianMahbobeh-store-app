@@ -1,65 +1,143 @@
+.mainHeader {
+  position: sticky; /* همیشه بالا بمونه! */
+  top: 0;
+  z-index: 1000; /* مطمئن شیم که همیشه بالاترین لایه است */
+  background-color: #ffffff; /* پس‌زمینه سفیدِ لوکس */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); /* سایه ظریف برای عمق‌بندی */
+  direction: rtl; /* کاملاً RTL */
+  font-family: "B Nazanin", sans-serif; /* فونت زیبای B Nazanin */
+}
+
+/* برای استفاده از کلاس گلوبال container */
+.container {
+  max-width: 1200px; /* حداکثر عرض محتوا */
+  margin: 0 auto; /* وسط‌چین کردن */
+  padding: 0 1rem; /* پدینگ از چپ و راست برای موبایل */
+}
+
 .headerRow {
   display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-top: 25px;
-  margin-bottom: 30px;
-  gap: 20px;
-  background-color: #e0dbdb65;
-  height: 60px;
-  padding: 5px;
-  border: none;
-  outline: none;
+  justify-content: space-between; /* پخش شدن عناصر */
+  align-items: center; /* هم‌ترازی عمودی */
+  padding: 1rem 0; /* پدینگ بالا و پایین */
+  border-bottom: 1px solid rgba(0, 92, 85, 0.08); /* خط جداکننده ظریف بین HeaderRow و CategoryBar */
+}
+
+.logoWrapper {
+  display: block; /* برای اینکه Link کل بلاک رو بگیره */
+  height: 50px; /* ارتفاع ثابت برای لوگو */
+  min-width: 120px; /* حداقل عرض برای لوگو تا جای SearchBox رو نگیره */
 }
 
 .logo {
-  width: 48px;
-  height: 48px;
-  border-radius: 18px;
-  box-shadow: 3px 5px 15px #aba7a7;
+  height: 100%; /* لوگو کل ارتفاع wrapper رو بگیره */
+  width: auto; /* عرض اتوماتیک */
+  object-fit: contain; /* برای حفظ نسبت تصویر */
 }
 
-/* Actions */
+.searchBoxWrapper {
+  flex-grow: 1; /* SearchBox بیشترین فضای ممکن رو بگیره */
+  margin: 0 2rem; /* فاصله از لوگو و اکشن‌ها */
+  max-width: 600px; /* محدودیت عرض برای SearchBox */
+}
+
 .actions {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 1.5rem; /* فاصله بین آیتم‌های اکشن */
 }
 
-.login,
-.user {
+.actionItem {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  gap: 12px;
-  cursor: pointer;
-  font-size: 1.5rem;
-  font-weight: 900;
-  color: #e60023;
-  background: linear-gradient(
-    260deg,
-    rgba(42, 123, 155, 1) 0%,
-    rgba(87, 199, 133, 1) 36%,
-    rgba(237, 221, 83, 1) 100%
-  );
-  border-radius: 5px;
-  width: 220px;
+  gap: 0.5rem;
+  text-decoration: none; /* برداشتن خط زیر لینک */
+  color: #333333; /* رنگ متن */
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  transition: all 0.3s ease; /* انیمیشن نرم برای هاور */
+  white-space: nowrap; /* جلوگیری از شکستن متن */
+}
+
+.actionItem:hover {
+  color: #005c55; /* تغییر رنگ متن به رنگ برند در هاور */
+  background-color: rgba(0, 92, 85, 0.05); /* پس‌زمینه خیلی ملایم در هاور */
+}
+
+.actionIcon {
+  font-size: 1.3rem; /* اندازه آیکون‌ها */
 }
 
 .cart {
-  position: relative;
-  cursor: pointer;
-  font-size: 1.5rem;
-  color: #981ea1;
+  position: relative; /* برای پوزیشن‌دهی badge */
 }
 
 .cartBadge {
   position: absolute;
-  top: -6px;
-  right: -8px;
-  background: #e60023;
-  color: white;
-  padding: 2px 6px;
-  font-size: 10px;
-  border-radius: 50%;
+  top: -8px; /* کمی بالاتر از گوشه آیکون */
+  right: -8px; /* کمی به راست آیکون */
+  background-color: #ff5858; /* رنگ قرمز جذاب برای badge */
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: bold;
+  border-radius: 50%; /* گرد */
+  min-width: 20px; /* حداقل عرض برای تک رقمی‌ها */
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+}
+
+.actionText {
+  /* متنی مثل "سبد خرید" یا "ورود" */
+  /* در موبایل پنهان بشه */
+  display: block; 
+}
+
+/* Category Bar Wrapper */
+.categoryBarWrapper {
+  padding: 0.5rem 0; /* پدینگ برای CategoryBar */
+}
+
+
+/* Responsive Design - Mobile First (یا حداقل Mobile Friendly!) */
+@media (max-width: 768px) {
+  .headerRow {
+    flex-wrap: wrap; /* در موبایل آیتم‌ها میتونن زیر هم بیان */
+    justify-content: center; /* وسط‌چین کردن آیتم‌ها */
+    gap: 1rem; /* فاصله بیشتر بین آیتم‌ها وقتی wrap میشن */
+    padding-bottom: 0.5rem; /* پدینگ کمتر */
+  }
+
+  .logoWrapper {
+    flex-basis: 100%; /* لوگو کل عرض رو بگیره */
+    text-align: center;
+    height: 40px; /* لوگو کوچکتر در موبایل */
+    margin-bottom: 0.5rem;
+  }
+
+  .searchBoxWrapper {
+    flex-basis: 100%; /* SearchBox کل عرض رو بگیره */
+    order: 3; /* SearchBox بره پایین‌تر (بعد از اکشن‌ها) */
+    margin: 0; /* برداشتن مارجین‌های افقی */
+  }
+
+  .actions {
+    flex-basis: 100%; /* اکشن‌ها کل عرض رو بگیرن */
+    justify-content: center; /* وسط‌چین کردن اکشن‌ها */
+    gap: 1rem;
+    order: 2; /* اکشن‌ها قبل از SearchBox باشن */
+  }
+
+  .actionItem {
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .actionText {
+    /* در موبایل فقط آیکون‌ها رو نشون میدیم و متن رو پنهان می‌کنیم برای صرفه‌جویی در فضا */
+    display: none; 
+  }
 }

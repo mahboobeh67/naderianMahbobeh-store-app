@@ -1,69 +1,128 @@
+/* ————————————————
+   CustomerProfile.module.css
+   Designed for محبوبه 💚
+   Clean, elegant, RTL-first
+   ———————————————— */
+
 .profileContainer {
-  max-width: 500px;
-  margin: 30px auto;
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-  font-family:  sans-serif;
+  max-width: 480px;
+  margin: 40px auto;
+  padding: 25px 30px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
+  direction: rtl;
+  font-family: "B Nazanin", sans-serif;
 }
 
 .profileContainer h2 {
   color: #005c55;
+  margin-bottom: 25px;
   text-align: center;
-  margin-bottom: 20px;
+  font-size: 1.8rem;
 }
+
+/* ———— فیلدهای فرم ———— */
 
 .profileField {
   display: flex;
   flex-direction: column;
-  margin-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .profileField label {
-  font-weight: 500;
   margin-bottom: 6px;
-  color: #005c55;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #003f39;
 }
 
 .profileField input {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #d3dfdc;
   border-radius: 8px;
-  font-size: 14px;
-  transition: border-color 0.2s;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.2s ease;
 }
 
 .profileField input:focus {
   border-color: #005c55;
+  background: #f1fbfa;
+  outline: none;
 }
 
+/* ———— دکمه‌ها ———— */
+
 .buttonWrapper {
+  margin-top: 30px;
   display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
   gap: 10px;
-  justify-content: center;
-  margin-top: 10px;
 }
 
 .buttonWrapper button {
-  background-color: #005c55;
-  color: #fff;
-  border: none;
-  padding: 8px 20px;
+  flex: 1;
+  padding: 10px 0;
   border-radius: 8px;
+  border: none;
+  font-size: 1.05rem;
+  font-family: inherit;
   cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.2s;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
 
-.buttonWrapper button:hover {
-  background-color: #007a70;
+/* دکمه ذخیره */
+.buttonWrapper button:nth-child(1) {
+  background: #005c55;
+  color: white;
 }
 
+.buttonWrapper button:nth-child(1):hover {
+  background: #007c70;
+}
+
+.buttonWrapper button:nth-child(1):active {
+  transform: scale(0.96);
+}
+
+/* دکمه انصراف */
 .buttonWrapper button:nth-child(2) {
-  background-color: #999;
+  background: #ffecec;
+  color: #c62828;
 }
 
 .buttonWrapper button:nth-child(2):hover {
-  background-color: #777;
+  background: #ffdede;
+}
+
+.buttonWrapper button:nth-child(2):active {
+  transform: scale(0.96);
+}
+
+/* دکمه ویرایش پروفایل */
+.buttonWrapper button:nth-child(3) {
+  background: #e2f4f1;
+  color: #005c55;
+}
+
+.buttonWrapper button:nth-child(3):hover {
+  background: #d5f1ed;
+}
+
+.buttonWrapper button:nth-child(3):active {
+  transform: scale(0.96);
+}
+
+/* ———— Responsive ———— */
+
+@media (max-width: 480px) {
+  .profileContainer {
+    padding: 18px 20px;
+  }
+
+  .buttonWrapper {
+    flex-direction: column;
+  }
 }

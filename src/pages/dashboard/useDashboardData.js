@@ -1,135 +1,177 @@
-import { useQuery, useInfiniteQuery } from '@tanstack/react-query'
+import { useQuery, useInfiniteQuery } from "@tanstack/react-query"
+import { useMemo, useCallback } from "react"
 import { 
-  fetchStats, 
-  fetchRecentOrders, 
-  fetchMessages, 
-  fetchSalesChart 
-} from "../../api/dashboard";
+  fetchStats,
+  fetchRecentOrders,
+  fetchMessages,
+  fetchSalesChart
+} from "../../api/dashboard"
 
 export default function useDashboardData() {
-  
-  // --- 1) Stats ---
+
+  // --- 1) Stats --------------------------------------------------------
   const {
     data: statsRaw,
     isLoading: statsLoading,
+    isFetching: statsFetching,
     error: statsError,
     refetch: refetchStats,
   } = useQuery({
-    queryKey: ['stats'],
+    queryKey: ["stats"],
     queryFn: fetchStats,
-    staleTime: 60_000, // 1min
+    staleTime: 60_000,
+    refetchOnWindowFocus: false,
   })
 
-  // Transforming stats for StatsCards
-  const stats = statsRaw?.map(item => ({
-    title: item.title,
-    value: item.value,
-    icon: item.icon,
-    type: item.type,
-    trend: item.trend,
-    trendValue: item.trendValue,
-  })) ?? []
+  const stats = useMemo(() => {
+    return (statsRaw ?? []).map(s => ({
+      title: s.title,
+      value: s.value,
+      type: s.type,
+      icon: s.icon,
+      trend: s.trend,
+      trendValue: s.trendValue,
+    }))
+  }, [statsRaw])
 
-  // --- 2) Recent Orders (Infinite Pagination) ---
+  // --- 2) Recent Orders (Infinite) -------------------------------------
   const {
     data: ordersPages,
     isLoading: ordersLoading,
-    error: ordersError,
-    fetchNextPage: loadMoreOrders,
-    hasNextPage,
+    isFetching: ordersFetching,
     isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+    error: ordersError,
     refetch: refetchOrders,
   } = useInfiniteQuery({
-    queryKey: ['orders'],
+    queryKey: ["orders"],
     queryFn: ({ pageParam = 1 }) => fetchRecentOrders({ page: pageParam }),
     getNextPageParam: (lastPage) => {
-      if (!lastPage.hasMore) return undefined
-      return lastPage.nextPage
-    }
+      return lastPage.hasMore ? lastPage.nextPage : undefined
+    },
+    refetchOnWindowFocus: false,
   })
 
-  // Flatten pages
-  const orders =
-    ordersPages?.pages?.flatMap(p => p.data) ?? []
+  const orders = useMemo(() => {
+    return ordersPages?.pages?.flatMap(p => p.data) ?? []
+  }, [ordersPages])
 
-  const ordersMeta = {
+  const ordersMeta = useMemo(() => ({
     hasMore: hasNextPage,
     isFetchingMore: isFetchingNextPage,
     page: ordersPages?.pages?.length ?? 1,
-  }
+  }), [hasNextPage, isFetchingNextPage, ordersPages])
 
-  // --- 3) Messages ---
+  // --- 3) Messages ------------------------------------------------------
   const {
-    data: messages,
+    data: messagesRaw,
     isLoading: messagesLoading,
+    isFetching: messagesFetching,
     error: messagesError,
     refetch: refetchMessages,
   } = useQuery({
-    queryKey: ['messages'],
+    queryKey: ["messages"],
     queryFn: fetchMessages,
     staleTime: 15_000,
+    refetchOnWindowFocus: false,
   })
 
-  // --- 4) Sales Chart Dataset ---
+  const messages = useMemo(() => messagesRaw ?? [], [messagesRaw])
+
+  const unreadMessagesCount = useMemo(() => {
+    return messages.reduce((acc, m) => acc + (m.read ? 0 : 1), 0)
+  }, [messages])
+
+  // --- 4) Sales Chart ---------------------------------------------------
   const {
     data: chartRaw,
     isLoading: chartLoading,
+    isFetching: chartFetching,
     error: chartError,
     refetch: refetchChart,
   } = useQuery({
-    queryKey: ['sales-chart'],
+    queryKey: ["sales-chart"],
     queryFn: fetchSalesChart,
+    refetchOnWindowFocus: false,
   })
 
-  // Transform to full dataset
-  const chartDataset = chartRaw
-    ? {
-        labels: chartRaw.labels,
-        datasets: [
-          {
-            label: "Sales",
-            data: chartRaw.values,
-            backgroundColor: "rgba(54, 162, 235, 0.4)",
-            borderColor: "rgba(54, 162, 235, 1)",
-            borderWidth: 2,
-          }
-        ],
-        options: { responsive: true }
-      }
-    : null
+  const chartDataset = useMemo(() => {
+    if (!chartRaw) return null
+    return {
+      labels: chartRaw.labels,
+      datasets: [
+        {
+          label: "Sales",
+          data: chartRaw.values,
+          backgroundColor: "rgba(54, 162, 235, 0.4)",
+          borderColor: "rgba(54, 162, 235, 1)",
+          borderWidth: 2,
+        }
+      ]
+    }
+  }, [chartRaw])
 
-  // --- 5) Derived values ---
-  const unreadMessagesCount = messages?.filter(m => !m.read).length ?? 0
+  const chartOptions = useMemo(() => ({
+    responsive: true,
+    maintainAspectRatio: false,
+  }), [])
 
-  // --- 6) Actions ---
-  const refetchAll = () => {
-    refetchStats()
-    refetchOrders()
-    refetchMessages()
-    refetchChart()
-  }
+  // --- 5) Composite Loading / Errors -----------------------------------
+  const anyLoading = statsLoading || ordersLoading || messagesLoading || chartLoading
+  const anyError = statsError || ordersError || messagesError || chartError
 
+  const isRefreshing = 
+    (statsFetching && !statsLoading) ||
+    (ordersFetching && !ordersLoading) ||
+    (messagesFetching && !messagesLoading) ||
+    (chartFetching && !chartLoading)
+
+  // --- 6) Actions -------------------------------------------------------
+  const loadMoreOrders = useCallback(() => {
+    if (hasNextPage) fetchNextPage()
+  }, [fetchNextPage, hasNextPage])
+
+  const refetchAll = useCallback(async () => {
+    await Promise.all([
+      refetchStats(),
+      refetchOrders(),
+      refetchMessages(),
+      refetchChart(),
+    ])
+  }, [refetchStats, refetchOrders, refetchMessages, refetchChart])
+
+  // --- 7) Return --------------------------------------------------------
   return {
-    // Data
+    // Main Data
     stats,
     orders,
     ordersMeta,
     messages,
     chartDataset,
+    chartOptions,
 
-    // Loading flags
+    // Loading States
     statsLoading,
     ordersLoading,
     messagesLoading,
     chartLoading,
 
-    // Error flags
+    // Errors
     statsError,
     ordersError,
     messagesError,
     chartError,
 
-    // Actions for UI
+    // Composite
+    derived: {
+      unreadMessagesCount,
+      anyLoading,
+      anyError,
+      isRefreshing,
+    },
+
+    // UI Actions
     actions: {
       refetchAll,
       refetchStats,
@@ -138,10 +180,5 @@ export default function useDashboardData() {
       refetchChart,
       loadMoreOrders,
     },
-
-    // Derived
-    derived: {
-      unreadMessagesCount,
-    }
   }
 }

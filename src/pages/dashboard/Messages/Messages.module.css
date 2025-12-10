@@ -1,0 +1,97 @@
+
+
+.container {
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 10px;
+  direction: rtl;
+  font-family: "B Nazanin", sans-serif;
+}
+
+.title {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #005c55;
+  margin-bottom: 25px;
+}
+
+/* لیست */
+.list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* کارت پیام */
+.card {
+  background: #fff;
+  padding: 18px 20px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  border-right: 4px solid #005c55;
+  transition: transform 0.12s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 22px rgba(0, 0, 0, 0.1);
+}
+
+/* هدر کارت */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.cardTitle {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* متن پیام */
+.content {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.8;
+  margin: 12px 0 18px;
+}
+
+/* فوتر کارت */
+.footer {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+/* Badge پایه */
+.badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+/* وضعیت‌ها */
+.statusNew {
+  background-color: #0288d1; /* آبی = پیام جدید */
+}
+
+.statusRead {
+  background-color: #4caf50; /* سبز = خوانده شده */
+}
+
+/* ریسپانسیو */
+@media (max-width: 480px) {
+  .card {
+    padding: 15px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+  }
+}

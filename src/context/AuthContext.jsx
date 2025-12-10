@@ -1,60 +1,54 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import {
-  loadTokens,
-  saveTokens,
-  clearTokens,
   getAccessToken,
+  saveAccessToken,
+  clearTokens,
 } from "../services/tokenStorage";
 import apiClient from "@/lib/apiClient";
 
-
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);     // اطلاعات کاربر
-  const [loading, setLoading] = useState(true); // برای auto-login
+  const [user, setUser] = useState(null);    
+  const [loading, setLoading] = useState(true); 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // ===============================================
-  // 🟦 Auto Login هنگام رفرش صفحه (Load Tokens)
+  // 🔵 Auto Login — only accessToken, no refreshToken
   // ===============================================
   useEffect(() => {
-    const stored = loadTokens();
+    const token = getAccessToken();
 
-    if (stored?.accessToken) {
-      setIsAuthenticated(true);
-
-      // Optional: گرفتن اطلاعات کاربر
-      fetchProfile();
-    } else {
+    if (!token) {
       setLoading(false);
+      return;
     }
+
+    // تست اعتبار توکن
+    fetchProfile();
   }, []);
 
-  // ============================
-  // 🟩 LOGIN FUNCTION
-  // ============================
+  // ===============================================
+  // 🟢 LOGIN
+  // ===============================================
   async function login(username, password) {
-    const res = await apiClient.post("/auth/login", {
+    const data = await apiClient.post("/auth/login", {
       username,
       password,
     });
 
-    saveTokens(
-      res.data.accessToken,
-      res.data.refreshToken,
-      res.data.expiresAt
-    );
+    // data = { accessToken: "...", user: {...} }
+    saveAccessToken(data.accessToken);
 
     setIsAuthenticated(true);
-    fetchProfile();
+    setUser(data.user);
 
-    return res.data;
+    return data.user;
   }
 
-  // ============================
-  // 🟥 LOGOUT FUNCTION
-  // ============================
+  // ===============================================
+  // 🔴 LOGOUT
+  // ===============================================
   async function logout() {
     try {
       await apiClient.post("/auth/logout");
@@ -65,34 +59,40 @@ export function AuthProvider({ children }) {
     setUser(null);
   }
 
-  // ============================
-  // 🟨 FETCH PROFILE (Protected)
-  // ============================
+  // ===============================================
+  // 🟡 FETCH PROFILE (Protected)
+  // ===============================================
   async function fetchProfile() {
     try {
-      const res = await apiClient.get("/auth/profile");
-      setUser(res.data.user);
-    } catch {
-      // اگر توکن نامعتبر بود → logout
+      const data = await apiClient.get("/auth/profile");
+      setUser(data.user);
+      setIsAuthenticated(true);
+    } catch (err) {
       clearTokens();
-      setIsAuthenticated(false);
       setUser(null);
+      setIsAuthenticated(false);
     } finally {
       setLoading(false);
     }
   }
 
-  const value = {
-    user,
-    loading,
-    isAuthenticated,
-    login,
-    logout,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        isAuthenticated,
+        login,
+        logout,
+        fetchProfile,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuth() {
   return useContext(AuthContext);
 }
+

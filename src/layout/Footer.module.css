@@ -1,45 +1,79 @@
 .footer {
- background: radial-gradient(circle,rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 68%);
-  color: #07cd2b;
-  padding: 10px 0;
-  margin-top: 10px;
-  text-align: center;
-  font-family: "Vazirmatn", sans-serif;
-  height: auto;
-  box-sizing: border-box;
-
+  background-color: #1a1a1a; /* رنگ پس‌زمینه تیره و لوکس */
+  color: #f0f0f0; /* رنگ متن روشن برای کنتراست عالی */
+  padding: 3rem 0; /* پدینگ سخاوتمندانه بالا و پایین */
+  direction: rtl; /* جهت راست به چپ */
+  font-family: "B Nazanin", sans-serif; /* فونت زیبای B Nazanin */
+  text-align: right; /* متن‌ها از راست تراز شوند */
+  line-height: 1.8; /* ارتفاع خط برای خوانایی بهتر */
+  border-top: 5px solid #005c55; /* یه خط سبز برند در بالا برای شروع Footer! */
 }
 
 .container {
-  width: 90%;
-  max-width: 700px;
-  margin: 0 auto;
-  height: auto;
-  box-sizing: border-box;
+  max-width: 1200px; /* حداکثر عرض محتوا */
+  margin: 0 auto; /* وسط‌چین کردن */
+  padding: 0 1.5rem; /* پدینگ از چپ و راست برای ریسپانسیو بودن */
+  display: flex; /* برای چیدمان داخلی فلکس */
+  flex-direction: column; /* آیتم‌ها زیر هم قرار بگیرند */
+  align-items: flex-end; /* همه چیز از راست تراز شود */
 }
 
 .title {
-  font-size: 22px;
-  margin-bottom: 10px;
-  font-weight: 700;
+  font-size: 1.8rem; /* اندازه عنوان بزرگ‌تر و چشمگیرتر */
+  color: #005c55; /* رنگ عنوان از رنگ برند */
+  margin-bottom: 1.5rem; /* فاصله از اطلاعات تماس */
+  font-weight: bold; /* بولد باشد */
 }
 
-.info {
-  font-size: 18px;
-  line-height: 1;
-  margin-bottom: 6px;
+.info p {
+  margin-bottom: 0.8rem; /* فاصله بین خطوط اطلاعات تماس */
+  font-size: 1rem;
+}
+
+.info strong {
+  color: #ffffff; /* عناوین کوچکتر (مثل آدرس، تلفن) سفید باشند */
+  font-weight: 600; /* کمی پررنگ‌تر از متن عادی */
+  margin-left: 0.5rem; /* فاصله از اطلاعات */
 }
 
 .divider {
-  width: 50%;
-  margin: 10px auto;
-  height: 1px;
-  background-color: #cce7e5;
-  opacity: 0.7;
+  width: 100%; /* عرض کامل */
+  height: 1px; /* خط باریک */
+  background-color: rgba(255, 255, 255, 0.2); /* خط جداکننده سفید و کم‌رنگ */
+  margin: 2rem 0; /* فاصله بالا و پایین از خط */
 }
 
 .copy {
-  font-size: 16px;
-  opacity: 0.85;
-  margin-top: 6px;
+  font-size: 0.9rem; /* اندازه کوچکتر برای کپی‌رایت */
+  color: #aaaaaa; /* رنگ خاکستری روشن برای کپی‌رایت */
+  text-align: center; /* کپی‌رایت وسط‌چین */
+  width: 100%; /* برای وسط‌چین شدن در فلکس کانتینر */
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 768px) {
+  .footer {
+    padding: 2rem 0; /* پدینگ کمتر در موبایل */
+  }
+
+  .container {
+    padding: 0 1rem; /* پدینگ کمتر از چپ و راست */
+  }
+
+  .title {
+    font-size: 1.5rem; /* عنوان کوچکتر در موبایل */
+    margin-bottom: 1rem;
+  }
+
+  .info p {
+    font-size: 0.9rem; /* متن اطلاعات کوچکتر */
+  }
+
+  .divider {
+    margin: 1.5rem 0;
+  }
+
+  .copy {
+    font-size: 0.8rem; /* کپی‌رایت کوچکتر */
+  }
 }

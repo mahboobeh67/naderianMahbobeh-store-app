@@ -9,14 +9,18 @@ import styles from "./AdminLayout.module.css";
 function AdminLayout() {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
+  const handleToggleSidebar = () => {
+    setIsCollapsed((prev) => !prev);
+  };
+
   return (
     <div className={styles.wrapper}>
+      {/* Sidebar */}
       <AdminSidebar isCollapsed={isCollapsed} />
 
+      {/* Main Content Area */}
       <div className={styles.mainArea}>
-        <AdminHeader
-          toggleSidebar={() => setIsCollapsed((prev) => !prev)}
-        />
+        <AdminHeader toggleSidebar={handleToggleSidebar} />
 
         <div className={styles.pageContent}>
           <Outlet />
@@ -27,4 +31,5 @@ function AdminLayout() {
 }
 
 export default AdminLayout;
+
 

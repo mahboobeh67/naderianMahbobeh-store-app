@@ -1,0 +1,126 @@
+
+
+/* -------- TOP-RIGHT -------- */
+.toastEnterTopRight {
+  animation: enterTopRight 0.35s ease-out forwards;
+}
+
+.toastExitTopRight {
+  animation: exitTopRight 0.25s ease-in forwards;
+}
+
+@keyframes enterTopRight {
+  from { opacity: 0; transform: translate(40px, -20px); }
+  to   { opacity: 1; transform: translate(0, 0); }
+}
+
+@keyframes exitTopRight {
+  from { opacity: 1; transform: translate(0, 0); }
+  to   { opacity: 0; transform: translate(40px, -20px); }
+}
+
+
+
+/* -------- TOP-LEFT -------- */
+.toastEnterTopLeft {
+  animation: enterTopLeft 0.35s ease-out forwards;
+}
+
+.toastExitTopLeft {
+  animation: exitTopLeft 0.25s ease-in forwards;
+}
+
+@keyframes enterTopLeft {
+  from { opacity: 0; transform: translate(-40px, -20px); }
+  to   { opacity: 1; transform: translate(0, 0); }
+}
+
+@keyframes exitTopLeft {
+  from { opacity: 1; transform: translate(0, 0); }
+  to   { opacity: 0; transform: translate(-40px, -20px); }
+}
+
+
+
+/* -------- TOP-CENTER -------- */
+.toastEnterTopCenter {
+  animation: enterTopCenter 0.35s ease-out forwards;
+}
+
+.toastExitTopCenter {
+  animation: exitTopCenter 0.25s ease-in forwards;
+}
+
+@keyframes enterTopCenter {
+  from { opacity: 0; transform: translateY(-40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes exitTopCenter {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-40px); }
+}
+
+
+
+/* -------- BOTTOM-RIGHT -------- */
+.toastEnterBottomRight {
+  animation: enterBottomRight 0.35s ease-out forwards;
+}
+
+.toastExitBottomRight {
+  animation: exitBottomRight 0.25s ease-in forwards;
+}
+
+@keyframes enterBottomRight {
+  from { opacity: 0; transform: translate(40px, 40px); }
+  to   { opacity: 1; transform: translate(0, 0); }
+}
+
+@keyframes exitBottomRight {
+  from { opacity: 1; transform: translate(0, 0); }
+  to   { opacity: 0; transform: translate(40px, 40px); }
+}
+
+
+
+/* -------- BOTTOM-LEFT -------- */
+.toastEnterBottomLeft {
+  animation: enterBottomLeft 0.35s ease-out forwards;
+}
+
+.toastExitBottomLeft {
+  animation: exitBottomLeft 0.25s ease-in forwards;
+}
+
+@keyframes enterBottomLeft {
+  from { opacity: 0; transform: translate(-40px, 40px); }
+  to   { opacity: 1; transform: translate(0, 0); }
+}
+
+@keyframes exitBottomLeft {
+  from { opacity: 1; transform: translate(0, 0); }
+  to   { opacity: 0; transform: translate(-40px, 40px); }
+}
+
+
+
+/* -------- BOTTOM-CENTER -------- */
+.toastEnterBottomCenter {
+  animation: enterBottomCenter 0.35s ease-out forwards;
+}
+
+.toastExitBottomCenter {
+  animation: exitBottomCenter 0.25s ease-in forwards;
+}
+
+@keyframes enterBottomCenter {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes exitBottomCenter {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(40px); }
+}
+

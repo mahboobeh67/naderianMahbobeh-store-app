@@ -1,0 +1,139 @@
+
+
+.card {
+  font-family: "B Nazanin", sans-serif;
+  direction: rtl;
+  background-color: #ffffff;
+  padding: 18px 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.25s ease;
+  user-select: none;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.11);
+}
+
+/* TIP: اینا تم‌ها هستن */
+.info {
+  border-right: 4px solid #0288d1;
+}
+
+.success {
+  border-right: 4px solid #2e7d32;
+}
+
+.warning {
+  border-right: 4px solid #ff9800;
+}
+
+.error {
+  border-right: 4px solid #c62828;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 1.15rem;
+  font-weight: bold;
+  color: #005c55;
+}
+
+.icon {
+  font-size: 1.6rem;
+  color: #005c55;
+}
+
+/* VALUE */
+.value {
+  margin-top: 14px;
+  font-size: 1.85rem;
+  color: #222;
+  font-weight: bold;
+}
+
+/* TREND */
+.trend {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.95rem;
+}
+
+.trendUp {
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.trendDown {
+  color: #c62828;
+  font-weight: bold;
+}
+
+.trendValue {
+  color: #333;
+  font-weight: 500;
+}
+
+/* LOADING (Skeleton) */
+.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.skeleton {
+  width: 100%;
+}
+
+.skeletonTitle,
+.skeletonValue {
+  background: linear-gradient(90deg, #e2e2e2, #f6f6f6, #e2e2e2);
+  background-size: 200% 100%;
+  border-radius: 6px;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeletonTitle {
+  width: 40%;
+  height: 16px;
+  margin-bottom: 10px;
+}
+
+.skeletonValue {
+  width: 55%;
+  height: 22px;
+}
+
+/* SHIMMER ANIMATION */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+  .card {
+    padding: 15px 16px;
+  }
+
+  .value {
+    font-size: 1.6rem;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+}

@@ -1,47 +1,36 @@
+// src/services/tokenStorage.js
 
-let memoryTokens = {
-  accessToken: null,
-  refreshToken: null,
-  expiresAt: null,
-};
+let memoryAccessToken = null;
 
-export function saveTokens(accessToken, refreshToken, expiresAt) {
-  memoryTokens = { accessToken, refreshToken, expiresAt };
-
-  localStorage.setItem(
-    "auth",
-    JSON.stringify({ accessToken, refreshToken, expiresAt })
-  );
+// ================================
+// Save ONLY access token
+// (refresh token is in HttpOnly cookie — not readable here)
+// ================================
+export function saveAccessToken(token) {
+  memoryAccessToken = token;
+  localStorage.setItem("accessToken", token);
 }
 
-export function loadTokens() {
-  const stored = localStorage.getItem("auth");
-  if (!stored) return null;
-
-  const parsed = JSON.parse(stored);
-  memoryTokens = parsed;
-  return parsed;
-}
-
-export function clearTokens() {
-  memoryTokens = { accessToken: null, refreshToken: null, expiresAt: null };
-  localStorage.removeItem("auth");
-}
-
+// ================================
 export function getAccessToken() {
-  return memoryTokens.accessToken;
+  return memoryAccessToken;
 }
 
-export function getRefreshToken() {
-  return memoryTokens.refreshToken;
+// ================================
+export function loadAccessToken() {
+  const token = localStorage.getItem("accessToken");
+  memoryAccessToken = token;
+  return token;
 }
 
+// ================================
+export function clearTokens() {
+  memoryAccessToken = null;
+  localStorage.removeItem("accessToken");
+}
+
+// ================================
 export function updateAccessToken(newToken) {
-  memoryTokens.accessToken = newToken;
-
-  const stored = JSON.parse(localStorage.getItem("auth"));
-  if (stored) {
-    stored.accessToken = newToken;
-    localStorage.setItem("auth", JSON.stringify(stored));
-  }
+  memoryAccessToken = newToken;
+  localStorage.setItem("accessToken", newToken);
 }

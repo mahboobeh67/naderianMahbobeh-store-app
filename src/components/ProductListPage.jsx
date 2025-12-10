@@ -1,38 +1,88 @@
-import useProducts from "@/hooks/useProducts";
+import styles from "./ProductList.module.css";
+import { useProducts } from "@/hooks";
+import { useState } from "react";
 
-function ProductList() {
-  const { data, isLoading, error } = useProducts({
+export default function ProductList() {
+  const [filters, setFilters] = useState({
     page: 1,
-    limit: 10,
     minPrice: 1000,
     maxPrice: 9000000,
   });
 
-  if (isLoading) return <p>در حال بارگذاری...</p>;
-  if (error) return <p>خطا در دریافت محصولات</p>;
+  const { data, isLoading, error, meta } = useProducts(filters);
 
-  if (!data) return <p>هنوز داده‌ای وجود ندارد</p>;
+  function changeFilter(field, value) {
+    setFilters((prev) => ({ ...prev, page: 1, [field]: value }));
+  }
 
-  // بررسی اینکه data آرایه است یا آبجکت با items
-  const productList = Array.isArray(data) ? data : data.items || [];
+  if (error) return <p className={styles.error}>خطا در دریافت محصولات!</p>;
 
   return (
-    <div>
-      <h2>لیست محصولات</h2>
+    <div className={styles.wrapper}>
+      {/* Filters */}
+      <div className={styles.filters}>
+        <label>
+          حداقل قیمت:
+          <input
+            type="number"
+            value={filters.minPrice}
+            onChange={(e) => changeFilter("minPrice", Number(e.target.value))}
+          />
+        </label>
 
-      {productList.map((item) => (
-        <p key={item.id}>
-          {item.name} - {item.price} تومان
-        </p>
-      ))}
+        <label>
+          حداکثر قیمت:
+          <input
+            type="number"
+            value={filters.maxPrice}
+            onChange={(e) => changeFilter("maxPrice", Number(e.target.value))}
+          />
+        </label>
+      </div>
 
-      {data.page && (
-        <p>
-          صفحه {data.page} از {data.totalPages}
-        </p>
-      )}
+      {/* PRODUCT GRID */}
+      <div className={styles.grid}>
+        {isLoading
+          ? Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className={styles.cardSkeleton} />
+            ))
+          : data?.map((p) => (
+              <a href={`/product/${p.id}`} key={p.id} className={styles.card}>
+                <div className={styles.cardImageWrapper}>
+                  <img
+                    src={p.image || "/placeholder.png"}
+                    alt={p.name}
+                    className={styles.cardImage}
+                  />
+                </div>
+
+                <h3 className={styles.cardTitle}>{p.name}</h3>
+
+                <p className={styles.cardPrice}>
+                  {p.price.toLocaleString()} تومان
+                </p>
+              </a>
+            ))}
+      </div>
+
+      {/* Pagination */}
+      <div className={styles.pagination}>
+        {meta?.page > 1 && (
+          <button
+            onClick={() => setFilters((f) => ({ ...f, page: f.page - 1 }))}
+          >
+            قبلی
+          </button>
+        )}
+
+        {meta?.hasMore && (
+          <button
+            onClick={() => setFilters((f) => ({ ...f, page: f.page + 1 }))}
+          >
+            بعدی
+          </button>
+        )}
+      </div>
     </div>
   );
 }
-
-export default ProductList;

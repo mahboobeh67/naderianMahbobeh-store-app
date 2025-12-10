@@ -1,9 +1,7 @@
 
 import styles from "./Dashboard.module.css"
-
 import useDashboardData from "./useDashboardData"
-
-import StatsCards from "./StatsCards/StatsCards"
+import StatsCards from "./StatsCards/StatsCard"
 import SalesChartBox from "./SalesChartBox/SalesChartBox"
 import RecentOrders from "./RecentOrders/RecentOrders"
 import Messages from "./Messages/Messages"

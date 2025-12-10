@@ -1,48 +1,108 @@
-/* متن پنهان بدون تغییر چیدمان */
-.hiddenText {
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  visibility: hidden;
-  width: 0;
+.sidebar {
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  background-color: #005c55;
+  color: #fff;
+  padding: 1rem 0.6rem;
+  box-sizing: border-box;
+  direction: rtl;
+  font-family: "B Nazanin", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: width 0.3s ease, padding 0.3s ease;
   overflow: hidden;
 }
 
-/* متن قابل نمایش */
-.visibleText {
+.expanded {
+  width: 240px;
+}
+
+.collapsed {
+  width: 70px;
+}
+
+/* Logo */
+.logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  text-decoration: none;
+  color: #fff;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  transition: background 0.2s ease, padding 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.collapsedItem {
+  justify-content: center;
+  gap: 0;
+}
+
+.navItem:hover {
+  background-color: rgba(255, 255, 255, 0.22);
+}
+
+.active {
+  background-color: rgba(0, 0, 0, 0.25);
+  font-weight: bold;
+}
+
+/* Icons */
+.icon {
+  font-size: 1.25rem;
+}
+
+/* Text label */
+.label {
+  font-size: 1.05rem;
   opacity: 1;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.25s ease;
 }
 
-/* ----- لیست ----- */
-.nav li {
-  margin: 0;
-  height: 44px;               /* ارتفاع ثابت */
-  display: flex;
-  align-items: center;
+.collapsed .label {
+  opacity: 0;
 }
 
-.nav a {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 14px;         /* padding ثابت */
-  height: 100%;               /* بدون تغییر */
-  border-radius: 6px;
-  transition: background 0.15s ease;
+/* Footer */
+.footer {
+  padding: 1rem 0;
+  text-align: center;
 }
 
-/* ----- logout section ----- */
 .logoutBtn {
-  display: flex;
-  flex-direction: row;
-  gap: 12px;
-  align-items: center;
-  padding: 10px 14px;
-  height: 44px;               /* ثابت */
+  background-color: #ff5858;
   border: none;
-  border-radius: 6px;
-  background: none;
-  color: white;
+  color: #fff;
+  padding: 0.6rem 0.8rem;
+  width: 100%;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  gap: 0.7rem;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s ease;
+}
+
+.logoutBtn:hover {
+  background-color: #d94646;
 }

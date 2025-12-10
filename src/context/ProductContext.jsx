@@ -1,44 +1,104 @@
-import { createContext, useContext, useEffect, useState } from "react";
+// src/context/ProductContext.jsx
+import { createContext, useContext, useEffect, useReducer } from "react";
+import { productReducer, initialState } from "./productReducer";
 
-// Create Context
-const ProductContext = createContext();
+const ProductContext = createContext(null);
 
-// Provider Component
 export function ProductProvider({ children }) {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [state, dispatch] = useReducer(productReducer, initialState);
 
-  // Fetch products from API
+  // =================================================
+  // 📌 Fetch Products on mount
+  // =================================================
   useEffect(() => {
     async function fetchProducts() {
       try {
-        setLoading(true);
-        setError(null);
+        dispatch({ type: "LOADING" });
 
-        // Example API — replace with your real API
         const response = await fetch("/api/products");
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch products");
-        }
+        if (!response.ok) throw new Error("Failed to fetch products");
 
         const data = await response.json();
-        setProducts(data);
+
+        dispatch({ type: "SET_PRODUCTS", payload: data });
 
       } catch (err) {
-        console.error("Error fetching products:", err);
-        setError(err.message || "Unknown error");
-      } finally {
-        setLoading(false);
+        dispatch({ type: "ERROR", payload: err.message });
       }
     }
 
     fetchProducts();
   }, []);
 
-  // Context value
-  const value = { products, loading, error };
+  // =================================================
+  // 🟢 Add Product
+  // =================================================
+  async function addProduct(product) {
+    try {
+      dispatch({ type: "LOADING" });
+
+      const res = await fetch("/api/products", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(product),
+      });
+
+      const newProduct = await res.json();
+
+      dispatch({ type: "ADD_PRODUCT", payload: newProduct });
+
+    } catch (err) {
+      dispatch({ type: "ERROR", payload: err.message });
+    }
+  }
+
+  // =================================================
+  // 🟡 Update Product
+  // =================================================
+  async function updateProduct(id, updates) {
+    try {
+      dispatch({ type: "LOADING" });
+
+      const res = await fetch(`/api/products/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updates),
+      });
+
+      const updated = await res.json();
+
+      dispatch({ type: "UPDATE_PRODUCT", payload: updated });
+
+    } catch (err) {
+      dispatch({ type: "ERROR", payload: err.message });
+    }
+  }
+
+  // =================================================
+  // 🔴 Delete Product
+  // =================================================
+  async function deleteProduct(id) {
+    try {
+      dispatch({ type: "LOADING" });
+
+      await fetch(`/api/products/${id}`, { method: "DELETE" });
+
+      dispatch({ type: "DELETE_PRODUCT", payload: id });
+
+    } catch (err) {
+      dispatch({ type: "ERROR", payload: err.message });
+    }
+  }
+
+  // ================================
+  // VALUE
+  // ================================
+  const value = {
+    ...state,
+    addProduct,
+    updateProduct,
+    deleteProduct,
+  };
 
   return (
     <ProductContext.Provider value={value}>
@@ -47,7 +107,7 @@ export function ProductProvider({ children }) {
   );
 }
 
-// Custom hook
+// Custom Hook
 export function useProduct() {
   return useContext(ProductContext);
 }

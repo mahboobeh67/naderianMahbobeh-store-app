@@ -1,10 +1,11 @@
-import React, {
+import {
   createContext,
   useContext,
   useReducer,
   useCallback,
   useRef,
 } from "react";
+import ToastContainer from "../components/toast/ToastContainer";
 
 const ToastContext = createContext();
 
@@ -37,13 +38,22 @@ export function ToastProvider({ children }) {
       closable = true,
       action,
       icon,
+      position = "top-right",
     }) => {
       const id = Date.now();
-      const toast = { id, message, type, duration, closable, action, icon };
+      const toast = {
+        id,
+        message,
+        type,
+        duration,
+        closable,
+        action,
+        icon,
+        position,
+      };
 
       dispatch({ type: "ADD_TOAST", payload: toast });
 
-      // مدیریت timeout جداگانه برای هر toast
       if (duration && duration > 0) {
         if (timeoutRefs.current[id]) clearTimeout(timeoutRefs.current[id]);
         timeoutRefs.current[id] = setTimeout(() => {
@@ -68,14 +78,23 @@ export function ToastProvider({ children }) {
   }, []);
 
   return (
-    <ToastContext.Provider value={{ toasts, showToast, removeToast, clearAll }}>
+    <ToastContext.Provider
+      value={{ toasts, showToast, removeToast, clearAll }}
+    >
       {children}
-      <ToastContainer />
+
+      {/* هر پوزیشن یک Container مجزا */}
+      <ToastContainer position="top-left" />
+      <ToastContainer position="top-center" />
+      <ToastContainer position="top-right" />
+      <ToastContainer position="bottom-left" />
+      <ToastContainer position="bottom-center" />
+      <ToastContainer position="bottom-right" />
     </ToastContext.Provider>
   );
 }
 
-export function useToast() {
+export function useToastContext() {
   return useContext(ToastContext);
 }
 

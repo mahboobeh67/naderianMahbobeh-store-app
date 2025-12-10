@@ -1,46 +1,79 @@
-.cardContainer{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.cardContainer {
+  padding: 15px;
+  direction: rtl;
+  font-family: "B Nazanin", sans-serif;
 }
 
-/* اندازه واقعی و منطقی کارت */
-.cardProduct{
-    display: flex;
-    flex-direction: column;
-    width: 241px;
-    height: 380px;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+.cardProduct {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+  position: relative;
 }
 
-.cardProduct .topCard{
-    height: 45%;
-    position: relative;
+.cardProduct:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
-.cardProduct .bottomCard{
-    background-color: #bfbaba;
-    height: 55%;
-    padding: 10px;
+.topCard {
+  position: relative;
+  background: #f5f5f5;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.topCard .productImage {
-    position: absolute;
-    width: 240px;
-    height: auto;
-    top: 2px;
-    
-
+.productImage {
+  width: 140px;
+  object-fit: contain;
+  transform: rotate(-20deg);
+  transition: transform 0.3s ease;
 }
 
-.price{
-    position: absolute;
-    bottom: 5px;
-    right: 10px;
-    color: #fff;
-    font-weight: bold;
-    font-size: 1.2rem;
+.cardProduct:hover .productImage {
+  transform: rotate(-10deg) scale(1.05);
+}
+
+.price {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  background: #005c55;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.bottomCard {
+  padding: 15px 18px;
+}
+
+.bottomCard h3 {
+  margin: 0;
+  font-size: 20px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.bottomCard p {
+  font-size: 15px;
+  color: #444;
+  margin: 0;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.bottomCard span {
+  font-size: 14px;
+  color: #00766d;
+  font-weight: 600;
+  background: #e7f7f7;
+  padding: 6px 10px;
+  border-radius: 6px;
 }

@@ -1,53 +1,30 @@
-import React from "react"
-import styles from "./styles.module.css"
+import StatsCard from "./StatsCard"
+import styles from "./StatsCard.module.css"
 
-export default function StatsCard({
-  title,
-  value,
-  icon: Icon,
-  type = "info",
-  trend = "none",
-  trendValue,
-  backgroundColor,
-  loading,
-  onClick
-}) {
-  const className = [
-    styles.card,
-    styles[type],
-    loading ? styles.loading : ""
-  ].join(" ")
+export default function StatsCards({ items, loading, error, onRefresh }) {
+  if (error) {
+    return (
+      <div className={styles.errorBox}>
+        خطا در بارگذاری آمار!  
+        <button onClick={onRefresh}>تلاش دوباره</button>
+      </div>
+    )
+  }
 
   return (
-    <div
-      className={className}
-      style={{ backgroundColor }}
-      onClick={onClick}
-    >
-      {loading ? (
-        <div className={styles.skeleton}>
-          <div className={styles.skeletonTitle}></div>
-          <div className={styles.skeletonValue}></div>
-        </div>
-      ) : (
-        <>
-          <div className={styles.header}>
-            <span className={styles.title}>{title}</span>
-            {Icon && <Icon className={styles.icon} />}
-          </div>
-
-          <div className={styles.value}>{value}</div>
-
-          {trend !== "none" && (
-            <div className={styles.trend}>
-              <span className={trend === "up" ? styles.trendUp : styles.trendDown}>
-                {trend === "up" ? "▲" : "▼"}
-              </span>
-              <span className={styles.trendValue}>{trendValue}</span>
-            </div>
-          )}
-        </>
-      )}
+    <div className={styles.grid}>
+      {(loading ? Array(4).fill(null) : items).map((item, i) => (
+        <StatsCard
+          key={i}
+          title={item?.title}
+          value={item?.value}
+          type={item?.type}
+          trend={item?.trend}
+          trendValue={item?.trendValue}
+          icon={item?.icon}
+          loading={loading}
+        />
+      ))}
     </div>
   )
 }

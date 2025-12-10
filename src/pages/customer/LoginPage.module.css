@@ -1,0 +1,113 @@
+
+.loginContainer {
+  max-width: 380px;
+  margin: 50px auto;
+  padding: 25px 30px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+  direction: rtl;
+  font-family: "B Nazanin", sans-serif;
+}
+
+.loginForm h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #005c55;
+  font-size: 1.8rem;
+}
+
+/* -------- Inputs -------- */
+
+.inputGroup {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputGroup label {
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #003f39;
+  font-size: 1.05rem;
+}
+
+.inputGroup input {
+  padding: 10px;
+  border: 1px solid #ccd7d4;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease, background 0.15s ease;
+}
+
+.inputGroup input:focus {
+  border-color: #005c55;
+  background: #f1fbfa;
+  outline: none;
+}
+
+/* -------- Options Row (remember + forgot) -------- */
+
+.optionsRow {
+  margin-top: 5px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rememberMe {
+  color: #005c55;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.forgotLink {
+  font-size: 0.95rem;
+  color: #c62828;
+  text-decoration: none;
+}
+
+.forgotLink:hover {
+  color: #a91e1e;
+}
+
+/* -------- Login Button -------- */
+
+.loginBtn {
+  width: 100%;
+  padding: 12px 0;
+  background: #005c55;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.1s ease;
+}
+
+.loginBtn:hover {
+  background: #00796b;
+}
+
+.loginBtn:active {
+  transform: scale(0.97);
+}
+
+.loginBtn:disabled {
+  background: #8ab7b4;
+  cursor: not-allowed;
+}
+
+/* -------- Responsive -------- */
+
+@media (max-width: 480px) {
+  .loginContainer {
+    margin: 25px;
+    padding: 18px 20px;
+  }
+}

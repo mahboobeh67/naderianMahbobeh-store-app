@@ -1,0 +1,84 @@
+.header {
+  width: 100%;
+  height: 60px;
+  background-color: #005c55;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+  direction: rtl;
+  font-family: "B Nazanin", sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.toggleBtn {
+  font-size: 1.6rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.toggleBtn:hover {
+  transform: scale(1.2);
+}
+
+.rightSide {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.backToShop {
+  text-decoration: none;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.backToShop:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.iconBtn {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.iconBtn:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.logoutBtn {
+  background-color: #ff5858;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.logoutBtn:hover {
+  background-color: #e64a4a;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .backToShop {
+    display: none;
+  }
+}

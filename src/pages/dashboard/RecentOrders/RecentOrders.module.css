@@ -1,0 +1,79 @@
+/* RecentOrders.module.css
+   Designed for محبوبه 💚
+   Modern — CardWidget — RTL — Elegant
+*/
+
+.container {
+  background: #ffffff;
+  padding: 18px 20px;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  direction: rtl;
+  font-family: "B Nazanin", sans-serif;
+}
+
+.title {
+  font-size: 1.3rem;
+  margin-bottom: 18px;
+  color: #005c55;
+  font-weight: bold;
+}
+
+/* لیست سفارش‌ها */
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  padding: 14px 0;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+/* ردیف بالا: شماره و وضعیت */
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.orderId {
+  font-weight: bold;
+  font-size: 1.05rem;
+}
+
+/* Badge پایه */
+.badge {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: white;
+}
+
+/* وضعیت‌ها */
+.statusDelivered {
+  background-color: #2e7d32;
+}
+
+.statusShipping {
+  background-color: #0288d1;
+}
+
+.statusCanceled {
+  background-color: #c62828;
+}
+
+/* ردیف پایین: تاریخ و مبلغ */
+.details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 0.95rem;
+  color: #555;
+}

@@ -1,34 +1,62 @@
-
-@font-face {
-  font-family: "Vazirmatn";
-  src: url("/fonts/Vazirmatn-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Vazirmatn";
-  src: url("/fonts/Vazirmatn-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-}
-
-body {
-  font-family: "Vazirmatn", sans-serif;
-  background-color: #f8f9f9;
+/* برای اطمینان از اینکه همه مرورگرها به درستی نمایش می‌دهند */
+html, body, #root {
+  height: 100%; /* برای اینکه body و #root کل ارتفاع صفحه را بگیرند */
   margin: 0;
-  color: #333;
+  padding: 0;
+}
+
+.layout {
+  display: flex; /* استفاده از فلکس‌باکس برای چیدمان اصلی */
+  flex-direction: column; /* آیتم‌ها (Header, Main, Footer) به صورت ستونی روی هم قرار می‌گیرند */
+  min-height: 100vh; /* تضمین می‌کند که Layout حداقل ارتفاع viewport را بگیرد */
+  direction: rtl; /* جهت کلی صفحه راست به چپ */
+  font-family: "B Nazanin", sans-serif; /* فونت اصلی پروژه */
+  color: #333333; /* رنگ متن پیش‌فرض */
+  background-color: #f8f8f8; /* پس‌زمینه کلی روشن و دلنشین */
+  overflow-x: hidden; /* جلوگیری از اسکرول افقی ناخواسته */
 }
 
 .mainWrapper {
-  min-height: 70vh;
-  padding: 30px 0;
-  display: flex;
-  justify-content: center;
+  display: flex; /* برای قرار دادن محتوای اصلی (Outlet) و سایدبار در کنار هم */
+  flex-grow: 1; /* تضمین می‌کند که این بخش، فضای باقیمانده عمودی را پر کند */
+  width: 100%; /* عرض کامل را بگیرد */
+  box-sizing: border-box; /* پدینگ و بوردر شامل عرض و ارتفاع شوند */
+  padding-top: 0; /* اگر Header sticky نیست، ممکن است نیاز به padding-top باشد */
+  /* اگر Sidebar هم قرار است sticky باشد، margin-top به Header داده شود */
 }
 
 .container {
-  width: 100%;
-  max-width: 1250px;
-  padding: 0 20px;
-  direction: rtl;
+  flex-grow: 1; /* محتوای اصلی، بیشترین فضای ممکن را اشغال کند */
+  max-width: 1200px; /* حداکثر عرض برای خوانایی بهتر محتوا */
+  margin: 0 auto; /* وسط‌چین کردن محتوا */
+  padding: 2rem 1.5rem; /* پدینگ داخلی برای زیبایی و فاصله از لبه‌ها */
+  box-sizing: border-box; /* پدینگ و بوردر شامل عرض و ارتفاع شوند */
+  background-color: #ffffff; /* پس‌زمینه سفید برای محتوای اصلی */
+  border-radius: 8px; /* گوشه‌های گرد برای کانتینر اصلی */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* سایه ملایم برای جلوه بصری */
+  margin-bottom: 2rem; /* فاصله از فوتر یا پایین صفحه */
 }
+
+/* برای ریسپانسیو بودن در اندازه‌های مختلف صفحه */
+@media (max-width: 1200px) {
+  .container {
+    max-width: 96%; /* کمی کوچک‌تر برای صفحات بزرگتر از موبایل */
+  }
+}
+
+@media (max-width: 768px) {
+  .mainWrapper {
+    flex-direction: column; /* در صفحات کوچک‌تر، محتوا و سایدبار زیر هم قرار می‌گیرند */
+  }
+
+  .container {
+    padding: 1.5rem 1rem; /* پدینگ کمتر برای موبایل */
+    margin-bottom: 1.5rem; /* فاصله کمتر */
+    border-radius: 0; /* در موبایل شاید گوشه‌های گرد کمتر به چشم بیاید */
+    box-shadow: none; /* سایه را برداریم */
+  }
+}
+
+/* اگر سایدبار در حالت موبایل باید به طور کامل پنهان یا باز شود،
+   نیاز به مدیریت جداگانه برای Sidebar.module.css داریم.
+   اینجا فقط Layout را تنظیم می‌کنیم. */

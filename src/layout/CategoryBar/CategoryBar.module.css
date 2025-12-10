@@ -1,28 +1,68 @@
 .wrapper {
+  direction: rtl; /* برای پشتیبانی کامل از زبان فارسی */
+  font-family: "B Nazanin", sans-serif; /* فونت زیبای B Nazanin */
   display: flex;
-  justify-content: center;
-  gap: 25px;
-  margin-top: 20px;
-  font-size: 16px;
-  font-weight: 600;
-background: radial-gradient(circle,rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
-height: auto;
-padding: 10px;
-  border: none;
-  outline: none;
+  gap: 1.5rem; /* فاصله بین آیتم‌ها */
+  padding: 1rem 0; /* کمی پدینگ عمودی */
+  overflow-x: auto; /* برای اسکرول افقی در صورت زیاد بودن آیتم‌ها */
+  scrollbar-width: none; /* فایرفاکس */
+  -ms-overflow-style: none; /* اینترنت اکسپلورر و اج */
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .item {
+  flex-shrink: 0; /* برای اینکه آیتم‌ها در اسکرول افقی جمع نشن */
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  background-color: #ffffff; /* پس‌زمینه سفید برای کارت */
+  border: 1px solid rgba(0, 92, 85, 0.1); /* بوردر ظریف با رنگ برند */
+  border-radius: 12px; /* گوشه‌های گرد و لوکس */
+  padding: 1.2rem 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* سایه ملایم و جذاب */
   cursor: pointer;
+  transition: all 0.3s ease; /* انیمیشن نرم برای هاور */
+  min-width: 120px; /* حداقل عرض برای هر آیتم */
+  text-align: center;
+}
+
+.item:hover {
+  transform: translateY(-5px) scale(1.02); /* حرکت به بالا و کمی بزرگتر شدن */
+  box-shadow: 0 8px 25px rgba(0, 92, 85, 0.2); /* سایه عمیق‌تر با رنگ برند */
+  border-color: #005c55; /* بوردر با رنگ اصلی برند */
 }
 
 .icon {
-  width: 70px;
-  height: 70px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 10px;
+  width: 50px; /* اندازه آیکون */
+  height: 50px;
+  object-fit: contain; /* برای حفظ نسبت تصویر آیکون */
+  margin-bottom: 0.8rem; /* فاصله بین آیکون و متن */
 }
+
+.item span {
+  font-size: 1rem;
+  font-weight: 600; /* کمی پررنگ‌تر */
+  color: #333333; /* رنگ متن تیره */
+  white-space: nowrap; /* جلوگیری از شکستن عنوان */
+}
+
+/* برای موبایل و صفحات کوچکتر، آیتم‌ها را کمی کوچکتر می‌کنیم */
+@media (max-width: 768px) {
+  .item {
+    padding: 0.8rem 1rem;
+    min-width: 100px;
+  }
+  .icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.6rem;
+  }
+  .item span {
+    font-size: 0.9rem;
+  }
+}
+

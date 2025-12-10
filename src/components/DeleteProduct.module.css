@@ -1,0 +1,93 @@
+.deleteBtn {
+  background: #ffe3e3;
+  color: #b30000;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: "B Nazanin";
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  transition: background 0.2s ease;
+  direction: rtl;
+}
+
+.deleteBtn:hover {
+  background: #ffcdcd;
+}
+
+.icon {
+  font-size: 14px;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 14px;
+  width: 340px;
+  text-align: center;
+  animation: fadeIn 0.25s ease;
+  font-family: "B Nazanin";
+  direction: rtl;
+}
+
+.modal h3 {
+  margin: 0 0 10px;
+  font-size: 22px;
+  color: #005c55;
+}
+
+.modal p {
+  margin-bottom: 20px;
+  color: #444;
+  font-size: 16px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancelBtn {
+  background: #e7e7e7;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+}
+
+.confirmBtn {
+  background: #b30000;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+}
+
+.confirmBtn:disabled {
+  background: #d46b6b;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

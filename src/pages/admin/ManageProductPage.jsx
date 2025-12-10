@@ -1,93 +1,92 @@
-import { useEffect, useState } from "react";
-import Pagination from "../../components/ui/Pagination";
-import ProductTable from "./ProductTable";
-import ProductFormModal from "./ProductFormModal";
-import { useDebouncedValue } from "../../../hook/useDebouncedValue";
-import useProducts from "../../../hook/useProducts";
-import SearchInput from "../../components/ui/SearchInput";
+import  { useEffect, useReducer } from "react";
+import styles from "./ManageProductPage.module.css";
+import useDebouncedValue from "@/hooks/useDebouncedValue";
+import  useProducts  from "@/hooks/useProducts";
+import ProductTable from "@/components/ui/ProductTable";
+import ProductFormModal from "@/components/ui/ProductFormModal";
+import { useToastContext } from "@/context/ToastContext";
+import { initialState, reducer } from "./manageProduct.reducer";
 
-function ManageProductPage() {
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const [showModal, setShowModal] = useState(false);
+export default function ManageProductPage() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { showToast } = useToastContext();
 
-  // Debounce search for 300ms
-  const debouncedSearch = useDebouncedValue(search, 300);
-
-  // Reset page when search changes
-  useEffect(() => {
-    setPage(1);
-  }, [debouncedSearch]);
-
-  // Fetch products
   const {
-    data,
-    isLoading,
-    isError,
-    refetch,
-  } = useProducts({
     page,
-    limit: 10,
+    limit,
+    search,
+    debouncedSearch,
+    isModalOpen,
+    modalMode,
+    selectedProduct,
+  } = state;
+
+  // Debounce search
+  const debouncedValue = useDebouncedValue(search, 500);
+
+  useEffect(() => {
+    dispatch({ type: "SET_DEBOUNCED_SEARCH", payload: debouncedValue });
+  }, [debouncedValue]);
+
+  // Fetch Products
+  const { data, isLoading, isError, error } = useProducts({
+    page,
+    limit,
     search: debouncedSearch,
-    sort: "createdAt_desc",
   });
 
-  const items = data?.items || [];
-  const meta = data?.meta || { total: 0, page: 1, pageSize: 10 };
+  // Toast error handler
+  useEffect(() => {
+    if (isError && error?.message) {
+      showToast(error.message, "error", "top-right");
+    }
+  }, [isError]);
 
   return (
-    <div>
-      {/* Header & Search */}
-      <header
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: 20,
-          alignItems: "center"
-        }}
-      >
-        <SearchInput
+    <div className={styles.wrapper}>
+
+      {/* HEADER */}
+      <header className={styles.header}>
+        <input
+          className={styles.searchInput}
+          type="text"
+          placeholder="جستجوی محصول..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) =>
+            dispatch({ type: "SET_SEARCH", payload: e.target.value })
+          }
         />
 
         <button
-          onClick={() => setShowModal(true)}
-          style={{
-            padding: "8px 12px",
-            background: "#0b8fde",
-            border: "none",
-            color: "#fff",
-            borderRadius: 6,
-            cursor: "pointer"
-          }}
+          className={styles.addBtn}
+          onClick={() => dispatch({ type: "OPEN_CREATE_MODAL" })}
         >
-          افزودن محصول
+          + افزودن محصول
         </button>
       </header>
 
-      {/* Product Table */}
+      {/* TABLE */}
       <ProductTable
-        products={items}
-        loading={isLoading}
-        error={isError}
-        onRetry={refetch}
+        products={data?.items || []}
+        isLoading={isLoading}
+        page={page}
+        totalPages={data?.meta?.totalPages || 1}
+        onPageChange={(p) => {
+          dispatch({ type: "SET_PAGE", payload: p });
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+        onEdit={(product) =>
+          dispatch({ type: "OPEN_EDIT_MODAL", payload: product })
+        }
       />
 
-      {/* Pagination */}
-      <Pagination
-        page={meta.page}
-        total={meta.total}
-        limit={meta.pageSize || 10}
-        onPageChange={setPage}
+      {/* MODAL */}
+      <ProductFormModal
+        isOpen={isModalOpen}
+        mode={modalMode}
+        initialValues={selectedProduct}
+        onClose={() => dispatch({ type: "CLOSE_MODAL" })}
       />
-
-      {/* Product Modal */}
-      {showModal && (
-        <ProductFormModal onClose={() => setShowModal(false)} />
-      )}
     </div>
   );
 }
-
-export default ManageProductPage;

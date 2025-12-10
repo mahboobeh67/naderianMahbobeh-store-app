@@ -1,0 +1,23 @@
+
+.container {
+  background: #ffffff;
+  padding: 18px 20px;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  direction: rtl;
+  font-family: "B Nazanin", sans-serif;
+  height: 320px; /* ارتفاع استاندارد کارت چارت */
+}
+
+.title {
+  font-size: 1.3rem;
+  margin-bottom: 18px;
+  color: #005c55;
+  font-weight: bold;
+}
+
+/* Wrapper چارت */
+.chartWrapper {
+  width: 100%;
+  height: 240px;
+}

@@ -1,54 +1,101 @@
-.row:hover {
-  background: #f9f9f9;
+
+
+.row {
+  font-family: "Vazirmatn", sans-serif;
+  background: #ffffff;
+  transition: background 0.15s ease, transform 0.08s ease;
 }
 
-/* Inventory Styling */
-.inStock {
+.row:hover {
+  background: #f6fbfa;
+  transform: translateX(-2px);
+}
+
+/* ———— ستون‌ها ———— */
+
+.colTitle {
+  font-weight: 600;
+  color: #003f39;
+}
+
+.colPrice {
   color: #005c55;
+  font-weight: 500;
+}
+
+.colId {
+  font-size: 0.85rem;
+  direction: ltr;
+  text-align: right;
+  opacity: 0.8;
+}
+
+/* ———— Badge موجودی ———— */
+
+.inStock {
+  color: #0d6e4f;
   font-weight: 600;
 }
 
 .outStock {
-  color: #c40000;
+  color: #c62828;
   font-weight: 600;
 }
 
-/* Actions column */
+/* ———— دکمه‌های اکشن ———— */
+
 .actions {
   display: flex;
-  gap: 8px;
+  gap: 10px;
+  justify-content: flex-start;
 }
 
-/* Edit Button */
-.editBtn {
-  background: #005c55;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 6px 14px;
-  cursor: pointer;
-  font-family:  sans-serif;
-  font-size: 0.85rem;
-  transition: 0.2s;
-}
-
-.editBtn:hover {
-  background: #007c73;
-}
-
-/* Delete Button */
+.editBtn,
 .deleteBtn {
-  background: #d70000;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 6px 14px;
-  cursor: pointer;
-  font-family: sans-serif;
+  font-family: "Vazirmatn", sans-serif;
   font-size: 0.85rem;
-  transition: 0.2s;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
 
-.deleteBtn:hover {
-  background: #b00000;
+/* — Edit button — */
+.editBtn {
+  background: #e4f5f3;
+  color: #005c55;
+  border: 1px solid #bde5dd;
 }
+
+.editBtn:hover:not(:disabled) {
+  background: #d5f2ed;
+}
+
+.editBtn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+/* — Delete button — */
+.deleteBtn {
+  background: #ffe8e8;
+  color: #c62828;
+  border: 1px solid #ffd2d2;
+}
+
+.deleteBtn:hover:not(:disabled) {
+  background: #ffdede;
+}
+
+.deleteBtn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+/* — Disabled state — */
+.editBtn:disabled,
+.deleteBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+

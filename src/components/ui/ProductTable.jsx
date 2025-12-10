@@ -1,71 +1,65 @@
-import { BsFillTrashFill, BsPencilFill } from "react-icons/bs";
 import styles from "./ProductTable.module.css";
-function ProductTable() {
+import { useProducts } from "@/hooks";
+import { useState } from "react";
+
+export default function ProductTable() {
+  const [sort, setSort] = useState({ field: "price", direction: "asc" });
+
+  const { data, isLoading, error } = useProducts({
+    sortField: sort.field,
+    sortDir: sort.direction,
+  });
+
+  function toggleSort(field) {
+    setSort((prev) =>
+      prev.field === field
+        ? { field, direction: prev.direction === "asc" ? "desc" : "asc" }
+        : { field, direction: "asc" }
+    );
+  }
+
+  if (error) return <p className={styles.error}>خطا در بارگذاری جدول!</p>;
+
   return (
     <div className={styles.tableWrapper}>
       <table className={styles.table}>
         <thead>
           <tr>
-            <th className={styles.expend}>نام کالا</th>
+            <th onClick={() => toggleSort("name")}>
+              نام محصول
+              {sort.field === "name" && (sort.direction === "asc" ? " 🔼" : " 🔽")}
+            </th>
+            <th onClick={() => toggleSort("price")}>
+              قیمت
+              {sort.field === "price" && (sort.direction === "asc" ? " 🔼" : " 🔽")}
+            </th>
             <th>موجودی</th>
-            <th>قیمت</th>
-            <th>شناسه کالا</th>
-            <th> عملیات</th>
+            <th>عملیات</th>
           </tr>
         </thead>
+
         <tbody>
-          <tr>
-            <td >موبایل</td>
-            <td>5</td>
-            <td>87000000</td>
-            <td>134</td>
-            <td>
-              <span className={styles.actions}>
-                <BsFillTrashFill  className={styles.deletebtn}/>
-                <BsPencilFill />
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td>تیشرت</td>
-            <td>25</td>
-            <td>300000</td>
-            <td>135</td>
-            <td>
-              <span className={styles.actions}>
-                <BsFillTrashFill  className={styles.deletebtn}/>
-                <BsPencilFill />
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td>لوازم تحریر</td>
-            <td>40</td>
-            <td>306000</td>
-            <td>136</td>
-            <td>
-              <span className={styles.actions}>
-                <BsFillTrashFill className={styles.deletebtn} />
-                <BsPencilFill />
-              </span>
-            </td>
-          </tr>
-              <tr>
-           <td>لباس ورزشی</td>
-            <td>40</td>
-            <td>416000</td>
-            <td>137</td>
-            <td>
-              <span className={styles.actions}>
-                <BsFillTrashFill  className={styles.deletebtn}/>
-                <BsPencilFill />
-              </span>
-            </td>
-          </tr>
+          {isLoading
+            ? Array.from({ length: 5 }).map((_, i) => (
+                <tr key={i} className={styles.skeletonRow}>
+                  <td colSpan="4" />
+                </tr>
+              ))
+            : data?.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.title}</td>
+                  <td>{item.price.toLocaleString()} تومان</td>
+                  <td>{item.inventory}</td>
+
+                  <td>
+                    <button className={styles.editBtn}>ویرایش</button>
+                    <button className={styles.deleteBtn}>حذف</button>
+                  </td>
+                </tr>
+              ))}
         </tbody>
       </table>
     </div>
   );
 }
 
-export default ProductTable;

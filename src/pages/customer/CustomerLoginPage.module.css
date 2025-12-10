@@ -1,41 +1,39 @@
-/* Container کلی فرم */
-.customerFormContainer {
-  max-width: 450px;
-  margin: 40px auto;
-  background-color: #fff;
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-  font-family:  sans-serif;
-}
 
-.customerFormImg {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 12px;
+
+.customerFormContainer {
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 20px 25px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  direction: rtl;
+  font-family: "B Nazanin", sans-serif;
 }
 
 .customerFormImg img {
-  width: 60px;
-  height: auto;
+  width: 80px;
+  margin-bottom: 10px;
 }
 
-.customerFormContainer h1 {
-  text-align: center;
-  margin-bottom: 6px;
+header h1 {
+  margin: 5px 0 10px;
+  font-size: 1.8rem;
   color: #005c55;
-  font-size: 22px;
 }
 
 .customerFormSubtitle {
-  text-align: center;
-  font-size: 14px;
+  font-size: 1rem;
   color: #666;
   margin-bottom: 20px;
 }
 
+/* ———— Form Box ———— */
+
 .customerForm {
-  width: 100%;
+  margin-top: 20px;
+  text-align: right;
 }
 
 .customerFieldGroup {
@@ -46,62 +44,92 @@
 
 .customerFieldGroup label {
   margin-bottom: 6px;
-  font-weight: 500;
-  color: #005c55;
+  font-size: 1.05rem;
+  color: #003f39;
+  font-weight: bold;
 }
 
 .customerFieldGroup input {
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: border-color 0.2s;
+  border: 1px solid #cfd8d6;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease, background 0.1s ease;
 }
 
 .customerFieldGroup input:focus {
   border-color: #005c55;
+  background: #f1fbfa;
   outline: none;
 }
 
+/* ———— Submit Button ———— */
+
 .customerButtonWrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 12px;
+  margin-top: 18px;
 }
 
 .customerButtonWrapper button {
-  background-color: #005c55;
-  color: #fff;
+  width: 100%;
+  padding: 12px 0;
+  background: #005c55;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-family: inherit;
   border: none;
-  border-radius: 6px;
-  padding: 10px 24px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 15px;
-  transition: background-color 0.2s;
+  transition: background 0.25s ease, transform 0.1s ease;
 }
 
 .customerButtonWrapper button:hover {
-  background-color: #007a70;
+  background: #00796b;
 }
+
+.customerButtonWrapper button:active {
+  transform: scale(0.97);
+}
+
+/* ———— Error Box ———— */
 
 .customerErrorBox {
-  margin-top: 8px;
-  color: #b71c1c;
-  font-size: 13px;
+  margin-top: 15px;
+  min-height: 22px;
+  color: #d32f2f;
+  font-size: 1rem;
   text-align: center;
+  transition: opacity 0.25s ease;
 }
 
+/* ———— Footer ———— */
+
 footer {
+  margin-top: 25px;
   text-align: center;
-  margin-top: 20px;
 }
 
 footer a {
   color: #005c55;
-  font-size: 14px;
   text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.2s ease;
 }
 
 footer a:hover {
-  text-decoration: underline;
+  color: #008c80;
 }
+
+/* ———— Responsive ———— */
+
+@media (max-width: 480px) {
+  .customerFormContainer {
+    margin: 20px;
+    padding: 15px;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+}
+
