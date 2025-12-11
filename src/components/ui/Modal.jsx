@@ -1,31 +1,37 @@
-import styles from "./Modal.module.css"
+import styles from "./Modal.module.css";
 
-function Modal({closeModal}) {
+function Modal({ isOpen, title, message, onConfirm, onCancel }) {
+  if (!isOpen) return null;
+
   return (
-    <div className={styles.modalBackground}>
-      
-      <div className={styles.modalContainer}>
+    <div className={styles.overlay}>
+      <div className={styles.modal}>
 
-        <div className={styles.titleCloseModal}>
-        <button onClick={() => closeModal(false)}> X </button>
-
+        {/* عنوان و دکمه بستن */}
+        <div className={styles.header}>
+          <h3>{title}</h3>
+          <button className={styles.closeBtn} onClick={onCancel}>×</button>
         </div>
-        <div className={styles.title}>
 
-          <h1>آیا از حذف این محصول مطمئن هستید</h1>
-        </div>
+        {/* متن */}
         <div className={styles.body}>
-          <p></p>
+          <p>{message}</p>
         </div>
+
+        {/* دکمه‌ها */}
         <div className={styles.footer}>
-          <button onClick={() => closeModal(false)} id={styles.cancel}>حذف</button>
-          <button>ادامه دادن</button>
+          <button className={styles.cancelBtn} onClick={onCancel}>
+            انصراف
+          </button>
+
+          <button className={styles.confirmBtn} onClick={onConfirm}>
+            تأیید
+          </button>
         </div>
+
       </div>
-      
-      
-      </div>
-  )
+    </div>
+  );
 }
 
-export default Modal
+export default Modal;

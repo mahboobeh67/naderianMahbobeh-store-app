@@ -14,11 +14,11 @@ function AdminLayout() {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${isCollapsed ? styles.collapsed : ""}`}>
       {/* Sidebar */}
       <AdminSidebar isCollapsed={isCollapsed} />
 
-      {/* Main Content Area */}
+      {/* Main Content */}
       <div className={styles.mainArea}>
         <AdminHeader toggleSidebar={handleToggleSidebar} />
 
@@ -31,5 +31,6 @@ function AdminLayout() {
 }
 
 export default AdminLayout;
+
 
 

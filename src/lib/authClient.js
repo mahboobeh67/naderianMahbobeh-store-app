@@ -1,11 +1,10 @@
 import axios from "axios";
-import { getAccessToken, updateAccessToken, clearTokens } from "./tokenStorage";
-
+import { getAccessToken, updateAccessToken, removeTokens } from "./auth/tokenStorage";
 
 // ===========================================
 // API CLIENT
 // ===========================================
-const apiClient = axios.create({
+const authclient = axios.create({
   baseURL:
     import.meta.env.MODE === "development"
       ? "http://localhost:3002/api" // backend port 3002
@@ -16,7 +15,7 @@ const apiClient = axios.create({
 // ===========================================
 // REQUEST: Attach Access Token
 // ===========================================
-apiClient.interceptors.request.use((config) => {
+authclient.interceptors.request.use((config) => {
   const token = getAccessToken();
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
@@ -36,7 +35,7 @@ function processQueue(error, token = null) {
 // ===========================================
 // RESPONSE INTERCEPTOR
 // ===========================================
-apiClient.interceptors.response.use(
+authclient.interceptors.response.use(
   (res) => res.data, // all responses return res.data
   async (error) => {
     const original = error.config;
@@ -51,7 +50,7 @@ apiClient.interceptors.response.use(
           failedQueue.push({ resolve, reject });
         }).then((token) => {
           original.headers.Authorization = `Bearer ${token}`;
-          return apiClient(original);
+          return authclient(original);
         });
       }
 
@@ -59,7 +58,7 @@ apiClient.interceptors.response.use(
 
       try {
         // Since (res) => res.data , response = {accessToken, ...}
-        const res = await apiClient.post("/auth/refresh");
+        const res = await authclient.post("/auth/refresh");
 
         const newAccess = res.accessToken; // NOT res.data.accessToken
 
@@ -67,10 +66,10 @@ apiClient.interceptors.response.use(
         processQueue(null, newAccess);
 
         original.headers.Authorization = `Bearer ${newAccess}`;
-        return apiClient(original);
+        return authclient(original);
       } catch (err) {
         processQueue(err, null);
-        clearTokens();
+        removeTokens();
         window.location.href = "/login";
         return Promise.reject(err);
       } finally {
@@ -83,5 +82,7 @@ apiClient.interceptors.response.use(
   }
 );
 console.log("API CLIENT LOADED FROM: services/apiClient.js");
-export default apiClient;
+export default authclient;
+
+
 

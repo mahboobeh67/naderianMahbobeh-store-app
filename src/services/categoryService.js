@@ -1,24 +1,20 @@
-// src/services/categoryService.js
-import apiClient from "@/lib/apiClient";
+import apiClient from "@/services/apiClient";
 
-export const categoryService = {
-  getAll(params) {
-    return apiClient.get("/categories", { params });
+const categoryService = {
+  getAll() {
+    return apiClient.get("/categories");
   },
-
   getOne(id) {
     return apiClient.get(`/categories/${id}`);
   },
-
-  create(data) {
-    return apiClient.post("/categories", data);
+  create(payload) {
+    return apiClient.post("/categories", payload);
   },
-
-  update(id, data) {
-    return apiClient.put(`/categories/${id}`, data);
+  update(id, payload) {
+    return apiClient.put(`/categories/${id}`, payload);
   },
-
   delete(id) {
     return apiClient.delete(`/categories/${id}`);
   },
 };
+ export default categoryService

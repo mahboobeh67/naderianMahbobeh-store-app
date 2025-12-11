@@ -1,44 +1,56 @@
 .wrapper {
-  display: flex;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  display: flex;
   direction: rtl;
+  background: #f7f9fa;
+  overflow: hidden;
   font-family: "B Nazanin", sans-serif;
-  background-color: #f4f6f9;
+
+  /* انیمیشن برای جابه‌جایی main-area */
+  transition: all 0.25s ease;
 }
 
-/* Sidebar + Main alignment */
+/* ===== SIDEBAR COLLAPSED MODE ===== */
+.collapsed .mainArea {
+  margin-right: 80px; /* در حالت جمع‌شده */
+}
+
 .mainArea {
   flex: 1;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+
+  margin-right: 260px; /* عرض سایدبار کامل */
+  transition: margin-right 0.25s ease;
 }
 
-/* Where the main page content sits */
+/* محتوای صفحه */
 .pageContent {
-  padding: 1.5rem;
-  flex: 1;
+  padding: 1.2rem;
   overflow-y: auto;
-  background-color: #fafafa;
+  flex-grow: 1;
+
+  background: #ffffff;
+  border-radius: 14px 14px 0 0;
+  margin-top: 0.5rem;
+
+  box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.06);
 }
 
-/* Smooth transitions when sidebar collapses */
-.sidebarCollapsed {
-  margin-right: 70px; /* width of collapsed sidebar */
-  transition: margin-right 0.3s ease;
-}
-
-.sidebarExpanded {
-  margin-right: 260px; /* width of expanded sidebar */
-  transition: margin-right 0.3s ease;
-}
-
-/* Responsive for tablets & mobiles */
+/* Mobile Mode */
 @media (max-width: 768px) {
-  .wrapper {
-    flex-direction: column;
-  }
   .mainArea {
+    margin-right: 0 !important; /* سایدبار روی صفحه باز می‌شود */
+  }
+
+  .collapsed .mainArea {
     margin-right: 0 !important;
   }
+
+  .pageContent {
+    padding: 1rem;
+  }
 }
+

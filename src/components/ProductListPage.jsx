@@ -1,5 +1,5 @@
 import styles from "./ProductList.module.css";
-import { useProducts } from "@/hooks";
+import useProducts from "@/hooks/useProducts";
 import { useState } from "react";
 
 export default function ProductList() {
@@ -9,7 +9,9 @@ export default function ProductList() {
     maxPrice: 9000000,
   });
 
-  const { data, isLoading, error, meta } = useProducts(filters);
+  const { data, isLoading, error } = useProducts(filters);
+
+  const { items = [], meta = {} } = data || {};
 
   function changeFilter(field, value) {
     setFilters((prev) => ({ ...prev, page: 1, [field]: value }));
@@ -46,7 +48,7 @@ export default function ProductList() {
           ? Array.from({ length: 8 }).map((_, i) => (
               <div key={i} className={styles.cardSkeleton} />
             ))
-          : data?.map((p) => (
+          : items.map((p) => (
               <a href={`/product/${p.id}`} key={p.id} className={styles.card}>
                 <div className={styles.cardImageWrapper}>
                   <img
@@ -67,7 +69,7 @@ export default function ProductList() {
 
       {/* Pagination */}
       <div className={styles.pagination}>
-        {meta?.page > 1 && (
+        {meta.page > 1 && (
           <button
             onClick={() => setFilters((f) => ({ ...f, page: f.page - 1 }))}
           >
@@ -75,7 +77,7 @@ export default function ProductList() {
           </button>
         )}
 
-        {meta?.hasMore && (
+        {meta.hasMore && (
           <button
             onClick={() => setFilters((f) => ({ ...f, page: f.page + 1 }))}
           >

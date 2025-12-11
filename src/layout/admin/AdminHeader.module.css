@@ -1,26 +1,31 @@
 .header {
   width: 100%;
-  height: 60px;
-  background-color: #005c55;
-  color: white;
+  direction: rtl;
+  background: linear-gradient(90deg, #005c55, #007d74);
+  color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 1.5rem;
-  box-sizing: border-box;
-  direction: rtl;
+
+  padding: 0.8rem 1.2rem;
   font-family: "B Nazanin", sans-serif;
+
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 3000;
+
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
 }
 
+/* Toggle Button (Sidebar) */
 .toggleBtn {
-  font-size: 1.6rem;
-  background: none;
+  font-size: 1.8rem;
+  background: transparent;
   border: none;
-  color: white;
+  color: #fff;
   cursor: pointer;
+
+  padding: 0.2rem 0.5rem;
   transition: transform 0.2s ease;
 }
 
@@ -28,57 +33,76 @@
   transform: scale(1.2);
 }
 
+/* Right Side Items */
 .rightSide {
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 1rem;
 }
 
+/* Back To Shop */
 .backToShop {
+  color: #ffffff;
   text-decoration: none;
-  color: #fff;
-  background-color: rgba(255, 255, 255, 0.15);
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.15);
   padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  transition: background-color 0.2s ease;
+  border-radius: 8px;
+  transition: background 0.25s ease, transform 0.2s ease;
 }
 
 .backToShop:hover {
-  background-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
 }
 
+/* Icon Buttons */
 .iconBtn {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
   border: none;
-  color: white;
+  color: #fff;
+  font-size: 1.4rem;
   padding: 0.4rem 0.6rem;
-  border-radius: 8px;
-  font-size: 1.2rem;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.25s ease, transform 0.2s ease;
 }
 
 .iconBtn:hover {
-  background: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
 }
 
+/* Logout Button */
 .logoutBtn {
-  background-color: #ff5858;
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
   color: #fff;
   text-decoration: none;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
+  background: #d9534f;
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+  transition: background 0.25s ease, transform 0.2s ease;
 }
 
 .logoutBtn:hover {
-  background-color: #e64a4a;
+  background: #c9302c;
+  transform: translateY(-2px);
 }
 
-/* Mobile */
+/* RESPONSIVE */
 @media (max-width: 768px) {
+  .header {
+    padding: 0.6rem 0.8rem;
+  }
+
   .backToShop {
-    display: none;
+    display: none; /* حذف برای فضای بهتر موبایل */
+  }
+
+  .iconBtn {
+    font-size: 1.3rem;
+  }
+
+  .toggleBtn {
+    font-size: 1.6rem;
   }
 }

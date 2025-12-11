@@ -1,4 +1,3 @@
-
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -6,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger/swagger.json' with { type: 'json' };
 
+// Routes
 import productRoutes from './src/routes/productRoutes.js';
 import authRoutes from './src/routes/authRoutes.js';
 import categoryRoutes from './src/routes/categoryRoutes.js';
@@ -17,6 +17,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+/* ----------------------------------------
+   DEBUG CORS HEADER LOGGER (optional)
+----------------------------------------- */
 app.use((req, res, next) => {
   const originalSet = res.setHeader.bind(res);
 
@@ -29,26 +32,24 @@ app.use((req, res, next) => {
 
   next();
 });
-/* ----------------------------------------
-   CORS FIXED (CREDENTIALS + MULTI ORIGIN)
------------------------------------------ */
 
+/* ----------------------------------------
+   CORS CONFIG (fully correct)
+----------------------------------------- */
 app.use(
   cors({
     origin: [
-      "http://localhost:3001", // vite dev
+      "http://localhost:3001",
       "http://127.0.0.1:3001",
-      "http://localhost:4173", // vite preview
-      "http://localhost:3003", // گاهی vite خودش تغییر پورت میده
+      "http://localhost:4173",
+      "http://localhost:3003",
     ],
     credentials: true,
   })
 );
 
-
-
 app.use(express.json());
-app.use(cookieParser()); // اضافه کردن cookie-parser
+app.use(cookieParser());
 
 /* ----------------------------------------
    ROUTES
@@ -65,8 +66,8 @@ app.use('/api/properties', propertyRoutes);
 swaggerDocument.servers = [
   {
     url: `http://localhost:${PORT}/api`,
-    description: "Local server"
-  }
+    description: "Local server",
+  },
 ];
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -91,5 +92,4 @@ function startServer(port) {
 }
 
 startServer(PORT);
-
 

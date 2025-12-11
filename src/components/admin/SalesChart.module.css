@@ -1,0 +1,52 @@
+.wrapper {
+  direction: rtl;
+  background: #fff;
+  padding: 1.2rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.title {
+  margin-bottom: 1rem;
+  font-family: "B Nazanin";
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #005c55;
+}
+
+.loadingBox,
+.errorBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2rem;
+  font-family: "B Nazanin";
+  color: #005c55;
+}
+
+.errorBox button {
+  background: #005c55;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid #ccc;
+  border-top-color: #005c55;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+

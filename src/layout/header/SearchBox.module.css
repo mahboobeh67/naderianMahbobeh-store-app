@@ -1,59 +1,72 @@
-.searchBox {
-  display: flex; /* برای چیدمان افقی آیکون و اینپوت */
-  align-items: center; /* هم‌ترازی عمودی */
-  direction: rtl; /* برای پشتیبانی کامل از زبان فارسی */
-  font-family: "B Nazanin", sans-serif; /* فونت زیبای B Nazanin */
-  background-color: #f7f7f7; /* پس‌زمینه روشن و دلنشین */
-  border: 1px solid #e0e0e0; /* بوردر ظریف خاکستری */
-  border-radius: 8px; /* گوشه‌های گرد و مدرن */
-  padding: 6px 10px; /* پدینگ داخلی طبق خواسته شما */
-  transition: all 0.3s ease; /* انیمیشن نرم برای حالت فوکوس */
-  width: 100%; /* عرض کامل را بگیرد، parent آن را محدود می‌کند */
-  max-width: 580px; /* حداکثر عرض در صورت نیاز */
+.wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+  direction: rtl;
+  font-family: "B Nazanin", sans-serif;
 }
 
-.searchBox:focus-within { /* وقتی کاربر داخل جعبه جستجو کلیک می‌کند */
-  border-color: #005c55; /* بوردر به رنگ برند درمی‌آید */
-  box-shadow: 0 0 0 3px rgba(0, 92, 85, 0.2); /* یک سایه ملایم و جذاب */
-  background-color: #ffffff; /* پس‌زمینه سفید می‌شود */
+.searchBox {
+  display: flex;
+  align-items: center;
+  background: #f7f7f7;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.searchBox:focus-within {
+  border-color: #005c55;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 92, 85, 0.2);
 }
 
 .searchInput {
-  flex-grow: 1; /* اینپوت بیشترین فضای ممکن را اشغال کند */
-  border: none; /* برداشتن بوردر پیش‌فرض اینپوت */
-  outline: none; /* برداشتن آوت‌لاین پیش‌فرض در فوکوس */
-  background-color: transparent; /* پس‌زمینه شفاف */
-  font-size: 0.95rem; /* اندازه فونت خوانا */
-  color: #333333; /* رنگ متن تیره */
-  padding: 0; /* برداشتن پدینگ پیش‌فرض */
-  text-align: right; /* متن از راست به چپ */
-  line-height: 1.5; /* ارتفاع خط برای خوانایی بهتر */
-}
-
-.searchInput::placeholder {
-  color: #888888; /* رنگ placeholder کمی روشن‌تر */
-  font-size: 0.9rem; /* اندازه فونت placeholder */
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.95rem;
+  text-align: right;
+  color: #333;
 }
 
 .searchIcon {
-  font-size: 1.6rem; /* اندازه آیکون بزرگ‌تر و چشمگیرتر */
-  color: #005c55; /* آیکون به رنگ برند! */
-  margin-right: 0.8rem; /* فاصله آیکون از متن اینپوت */
-  cursor: pointer; /* نشان دادن اینکه آیکون قابل کلیک است */
-  flex-shrink: 0; /* آیکون کوچک نشود */
+  font-size: 1.6rem;
+  color: #005c55;
+  margin-right: 0.8rem;
+  cursor: pointer;
 }
 
-/* برای ریسپانسیو بودن در موبایل، اگر نیاز بود */
-@media (max-width: 768px) {
-  .searchBox {
-    padding: 8px 12px; /* کمی پدینگ بیشتر برای لمس راحت‌تر */
-  }
-  .searchInput {
-    font-size: 0.9rem;
-  }
-  .searchIcon {
-    font-size: 1.4rem;
-    margin-right: 0.6rem;
-  }
+.dropdown {
+  position: absolute;
+  top: 105%;
+  right: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  z-index: 200;
+  max-height: 260px;
+  overflow-y: auto;
 }
 
+.item {
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.item:hover {
+  background: rgba(0, 92, 85, 0.1);
+}
+
+.loading,
+.noResult {
+  padding: 12px 14px;
+  color: #666;
+  font-size: 0.9rem;
+  text-align: center;
+}

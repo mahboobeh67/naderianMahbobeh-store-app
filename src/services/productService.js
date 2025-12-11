@@ -1,28 +1,26 @@
-import apiClient from "@/lib/apiClient";
+// src/services/productService.js
+import apiClient from "./apiClient";
 
 const productService = {
-  getList(params) {
-    return apiClient.get("/products", { params }).then(r => r.data);
+  async getList(params) {
+    return apiClient.get("/products", { params });
   },
-
-  getOne(id) {
-    return apiClient.get(`/products/${id}`).then(r => r.data);
+  async getOne(id) {
+    return apiClient.get(`/products/${id}`);
   },
-
-  create(data) {
-    return apiClient.post("/products", data).then(r => r.data);
+  async create(data) {
+    return apiClient.post("/products", data);
   },
-
-  update(id, data) {
-    return apiClient.put(`/products/${id}`, data).then(r => r.data);
+  async update(id, data) {
+    return apiClient.put(`/products/${id}`, data);
   },
-
-  delete(id) {
-    return apiClient.delete(`/products/${id}`).then(r => r.data);
+  async delete(id) {
+    return apiClient.delete(`/products/${id}`);
   },
 };
 
-export default productService
+export default productService;
+
 
 
 

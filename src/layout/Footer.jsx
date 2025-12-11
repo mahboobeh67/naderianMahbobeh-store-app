@@ -1,4 +1,4 @@
-import styles from "./Footer.module.css"
+import styles from "./Footer.module.css";
 
 function Footer() {
   return (
@@ -15,11 +15,12 @@ function Footer() {
 
         <div className={styles.divider}></div>
 
-        <p className={styles.copy}>© تمامی حقوق متعلق به محبوبه نادریان است.</p>
+        <p className={styles.copy}>
+          © تمامی حقوق متعلق به محبوبه نادریان است.
+        </p>
       </div>
     </footer>
   );
 }
-
 
 export default Footer;

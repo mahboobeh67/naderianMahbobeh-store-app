@@ -6,26 +6,36 @@ import CustomerLoginPage from "./pages/customer/CustomerLoginPage";
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import ManageProductPage from "./pages/admin/ManageProductPage";
+
 import OrdersPage from "./pages/customer/OrdersPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Layout from "./layout/Layout";
 import CustomerProfile from "./pages/customer/CustomerProfile";
 import AdminLayout from "./layout/admin/AdminLayout";
 
+
+// ========== NEW (admin categories) ==========
+import Categories from "./pages/admin/Categories";
+
+// ========== NEW (customer storefront page for categories) ==========
+import CategoryStorePage from "./layout/CategoryBar/CategoryBar";
+
+
 const App = () => {
   return (
     <Routes>
-
       {/* ------- ADMIN AUTH ------- */}
       <Route path="/admin/login" element={<AdminLoginPage />} />
 
-      <Route
-        path="/admin"
-        element={<ProtectedRoute role="admin" />}
-      >
+      <Route path="/admin" element={<ProtectedRoute role="admin" />}>
         <Route element={<AdminLayout />}>
+
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="manage" element={<ManageProductPage />} />
+
+          {/* NEW ---- مدیریت دسته‌ها ---- */}
+          <Route path="categories" element={<Categories />} />
+
         </Route>
       </Route>
 
@@ -57,11 +67,15 @@ const App = () => {
         {/* Products */}
         <Route path="/product" element={<ProductPage />} />
         <Route path="/product/:id" element={<ProductDetailsPage />} />
+
+        {/* NEW ---- صفحه فروشگاهی دسته‌ها ---- */}
+        {/* مثال URL:  /category/12  → نمایش محصولات دسته 12 */}
+        <Route path="/category/:id" element={<CategoryStorePage />} />
+
       </Route>
 
       {/* 403 Page */}
       <Route path="/403" element={<div>403 - دسترسی ندارید!</div>} />
-
     </Routes>
   );
 };

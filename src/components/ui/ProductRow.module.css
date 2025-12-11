@@ -1,0 +1,33 @@
+.row td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid #ddd;
+  text-align: right;
+}
+
+.editBtn,
+.deleteBtn {
+  border: none;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  border-radius: 6px;
+  font-family: "B Nazanin";
+}
+
+.editBtn {
+  background: #005c55;
+  color: #fff;
+  margin-left: 0.5rem;
+}
+
+.editBtn:hover {
+  background: #004843;
+}
+
+.deleteBtn {
+  background: #d9534f;
+  color: #fff;
+}
+
+.deleteBtn:hover {
+  background: #c9302c;
+}

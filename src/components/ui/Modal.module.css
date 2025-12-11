@@ -1,61 +1,90 @@
-.modalBackground {
-  width: 60vw;
-  height: 60vh;
-  background-color: rgba(200, 200, 200, 0.5);
+.overlay {
   position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(3px);
+
   display: flex;
-  justify-content: center;
   align-items: center;
-}
-.modalContainer {
-  width: 40vw;
-  height: 40vh;
-  border-radius: 12px;
-  background-color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.35) 0 5 15;
-  display: flex;
-  flex-direction: column;
-  padding: 25px;
+  justify-content: center;
+
+  z-index: 5000;
 }
 
-.modalContainer .title{
-    display: inline-block;
-    text-align: center;
-    margin-top: 10px;
+.modal {
+  width: 360px;
+  background: #fff;
+  padding: 1.5rem;
+
+  border-radius: 12px;
+  direction: rtl;
+  font-family: "B Nazanin";
+
+  animation: fadeIn 0.25s ease, scaleIn 0.25s ease;
 }
-.titleCloseModal{
-    display: flex;
-    justify-content: flex-start;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 1rem;
 }
-.titleCloseModal button{
-    background-color: transparent;
-    border: none;
-    font-size: 25px;
-    cursor: pointer;
+
+.closeBtn {
+  font-size: 1.4rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #444;
+  padding: 0.1rem 0.4rem;
 }
-.modalContainer .body{
-    flex: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.7rem;
-    text-align: center;
+
+.body p {
+  margin: 0;
+  color: #333;
+  line-height: 1.7;
 }
-.modalContainer .footer{
-    flex: 20%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.footer {
+  margin-top: 1.4rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
 }
-.modalContainer .footer button{
-    width: 150px;
-    height: 45px;
-    margin: 10px;
-    border: none;
-    background-color: cornflowerblue;
-    font-size: 28px;
-    cursor: pointer;
+
+.cancelBtn {
+  padding: 0.5rem 1rem;
+  background: #ddd;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
-#cancel{
-    background-color: crimson;
+
+.cancelBtn:hover {
+  background: #c8c8c8;
+}
+
+.confirmBtn {
+  padding: 0.5rem 1rem;
+  background: #005c55;
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.confirmBtn:hover {
+  background: #004843;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.85); }
+  to { transform: scale(1); }
 }

@@ -1,68 +1,115 @@
 .wrapper {
-  direction: rtl; /* برای پشتیبانی کامل از زبان فارسی */
-  font-family: "B Nazanin", sans-serif; /* فونت زیبای B Nazanin */
+  direction: rtl;
   display: flex;
-  gap: 1.5rem; /* فاصله بین آیتم‌ها */
-  padding: 1rem 0; /* کمی پدینگ عمودی */
-  overflow-x: auto; /* برای اسکرول افقی در صورت زیاد بودن آیتم‌ها */
-  scrollbar-width: none; /* فایرفاکس */
-  -ms-overflow-style: none; /* اینترنت اکسپلورر و اج */
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  gap: 1.4rem;
+  padding: 1rem 0;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+
+  font-family: "B Nazanin", sans-serif;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
+.wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+/* Drag Cursor */
+.grabbing {
+  cursor: grab;
+}
+
+/* Each Category Item */
 .item {
-  flex-shrink: 0; /* برای اینکه آیتم‌ها در اسکرول افقی جمع نشن */
+  flex-shrink: 0;
+  scroll-snap-align: center;
+  background: #ffffff;
+  border: 1px solid rgba(0, 92, 85, 0.12);
+  border-radius: 14px;
+
+  min-width: 120px;
+  padding: 1.2rem;
+  text-align: center;
+  cursor: pointer;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-color: #ffffff; /* پس‌زمینه سفید برای کارت */
-  border: 1px solid rgba(0, 92, 85, 0.1); /* بوردر ظریف با رنگ برند */
-  border-radius: 12px; /* گوشه‌های گرد و لوکس */
-  padding: 1.2rem 1.5rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* سایه ملایم و جذاب */
-  cursor: pointer;
-  transition: all 0.3s ease; /* انیمیشن نرم برای هاور */
-  min-width: 120px; /* حداقل عرض برای هر آیتم */
-  text-align: center;
+
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
 
+/* 3D Hover Effect */
 .item:hover {
-  transform: translateY(-5px) scale(1.02); /* حرکت به بالا و کمی بزرگتر شدن */
-  box-shadow: 0 8px 25px rgba(0, 92, 85, 0.2); /* سایه عمیق‌تر با رنگ برند */
-  border-color: #005c55; /* بوردر با رنگ اصلی برند */
+  transform: translateY(-6px) scale(1.045) rotate3d(1, 0.2, 0, 4deg);
+  box-shadow: 0 10px 28px rgba(0, 92, 85, 0.17);
+  border-color: #005c55;
+}
+
+/* Active Item */
+.active {
+  border-color: #005c55;
+  box-shadow: 0 0 0 3px rgba(0, 92, 85, 0.22);
+  transform: scale(1.05);
+}
+
+/* Ripple Container */
+.rippleContainer {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.item:active .rippleContainer::after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: rgba(0, 92, 85, 0.25);
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 0.45s ease-out forwards;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(8);
+    opacity: 0;
+  }
 }
 
 .icon {
-  width: 50px; /* اندازه آیکون */
+  width: 50px;
   height: 50px;
-  object-fit: contain; /* برای حفظ نسبت تصویر آیکون */
-  margin-bottom: 0.8rem; /* فاصله بین آیکون و متن */
+  object-fit: contain;
+  margin-bottom: 0.7rem;
 }
 
 .item span {
   font-size: 1rem;
-  font-weight: 600; /* کمی پررنگ‌تر */
-  color: #333333; /* رنگ متن تیره */
-  white-space: nowrap; /* جلوگیری از شکستن عنوان */
+  font-weight: 600;
+  white-space: nowrap;
+  color: #333;
 }
 
-/* برای موبایل و صفحات کوچکتر، آیتم‌ها را کمی کوچکتر می‌کنیم */
+/* Mobile */
 @media (max-width: 768px) {
   .item {
-    padding: 0.8rem 1rem;
     min-width: 100px;
+    padding: 0.9rem;
   }
   .icon {
     width: 40px;
     height: 40px;
-    margin-bottom: 0.6rem;
   }
   .item span {
     font-size: 0.9rem;
   }
 }
+
 

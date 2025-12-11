@@ -1,44 +1,44 @@
 import { useQuery } from "@tanstack/react-query";
 import productService from "@/services/productService";
 
-
 export default function useProducts({
   page = 1,
   limit = 10,
   search = "",
   sort = null,
-  filters = {},     // { categoryId: 1, brands: [1,2], price: [10,50] }
+  minPrice = null,
+  maxPrice = null,
 }) {
   const params = {
     page,
     limit,
     search,
     sort,
-    ...filters,
+    minPrice,
+    maxPrice,
   };
 
   return useQuery({
     queryKey: ["products", params],
 
     queryFn: async () => {
-      // productService.getList → apiClient.get("/products", { params })
-      const response = await productService.getList(params);
-
+      const res = await productService.getList(params);
 
       return {
-        items: response.items || [],
-        meta: response.meta || {
-          total: 0,
-          totalPages: 1,
-          page,
-          limit,
+        items: res.data || [],
+        meta: {
+          total: res.totalProducts,
+          totalPages: res.totalPages,
+          page: res.page,
+          limit: res.limit,
+          hasMore: res.page < res.totalPages,
         },
       };
     },
 
-    keepPreviousData: true,   // prevents UI flickering during pagination
-    staleTime: 1000 * 60 * 2, // items stay fresh for 2 minutes
+    keepPreviousData: true,
+    staleTime: 1000 * 60 * 2,
     refetchOnWindowFocus: false,
-    retry: 1,                 // retry only once on network error
+    retry: 1,
   });
 }

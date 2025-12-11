@@ -1,16 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { categoryService } from "@/services/categoryService";
+import  categoryService  from "@/services/categoryService";
 
-export default function useCategories() {
+ function useCategories() {
   return useQuery({
     queryKey: ["categories"],
-    queryFn: async () => {
-      const res = await categoryService.getAll();
-      return res.data;
-    },
-    staleTime: 5 * 60 * 1000,
+    queryFn: () => categoryService.getAll(),
   });
 }
 
-
-
+export default useCategories

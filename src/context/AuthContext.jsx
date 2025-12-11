@@ -1,10 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import {
   getAccessToken,
-  saveAccessToken,
+  saveTokens,
   clearTokens,
 } from "../services/tokenStorage";
-import apiClient from "@/lib/apiClient";
+
+
+import apiClient from "@/services/apiClient";
+
 
 const AuthContext = createContext(null);
 
@@ -38,7 +41,7 @@ export function AuthProvider({ children }) {
     });
 
     // data = { accessToken: "...", user: {...} }
-    saveAccessToken(data.accessToken);
+    saveTokens(data.accessToken);
 
     setIsAuthenticated(true);
     setUser(data.user);

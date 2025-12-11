@@ -1,5 +1,7 @@
 export async function fetchCategories() {
-  const res = await fetch("http://localhost:3000/categories");
+  const res = await fetch("/api/categories", {
+    credentials: "include",
+  });
   if (!res.ok) throw new Error("Failed to fetch categories");
-  return res.json(); // raw data
+  return res.json();
 }

@@ -1,50 +1,86 @@
-import { useEffect, useState, useMemo } from "react";
+// src/pages/ProductPage/ProductPage.jsx
+import { useEffect, useState, useMemo, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import Card from "../../components/Card";
 import Loading from "../../components/ui/Loading";
 import SearchBox from "../../layout/header/SearchBox";
-import { useProduct } from "../../context/ProductContext";
+import Sidebar from "../../layout/Sidebar";
+
+import { useProducts } from "../../context/ProductContext";
+
 import {
   filterProduct,
   getInitialQuery,
   searchProduct,
 } from "../../helper/helper";
+
 import styles from "./ProductPage.module.css";
-import Sidebar from "../../layout/Sidebar";
 
 function ProductPage() {
-  const { products, loading, error } = useProduct();
+  const {
+    products,
+    isLoading,
+    isRefetching,
+    error,
+    invalidateProducts,
+  } = useProducts();
 
   const [searchParams, setSearchParams] = useSearchParams();
+
   const [query, setQuery] = useState(getInitialQuery(searchParams));
 
+
   // ---------------------------------------------
-  // Keep URL synced with query
+  // Sync URL with query state (always in sync)
   // ---------------------------------------------
   useEffect(() => {
     setSearchParams(query);
-  }, [query]);
+  }, [query, setSearchParams]);
+
 
   // ---------------------------------------------
-  // Filtering logic (memoized)
+  // Memoized Filtering Logic
   // ---------------------------------------------
   const displayed = useMemo(() => {
-    if (!products || loading) return [];
+    if (!products || isLoading) return [];
 
     let filtered = searchProduct(products, query.search);
     filtered = filterProduct(filtered, query.category);
 
     return filtered;
-  }, [products, query, loading]);
+  }, [products, query, isLoading]);
+
 
   // ---------------------------------------------
-  // Error State
+  // Handler: Reset filters (enterprise-ready)
+  // ---------------------------------------------
+  const handleResetFilters = useCallback(() => {
+    setQuery({ search: "", category: "all" });
+
+    // و همینجا لیست را از نو Fetch می‌کنیم
+    invalidateProducts();
+  }, [setQuery, invalidateProducts]);
+
+
+  // ---------------------------------------------
+  // Render Error State
   // ---------------------------------------------
   if (error) {
-    return <div className={styles.error}>خطا در دریافت محصولات</div>;
+    return (
+      <div className={styles.error}>
+        خطا در دریافت محصولات
+        <button onClick={invalidateProducts} className={styles.retryBtn}>
+          تلاش مجدد
+        </button>
+      </div>
+    );
   }
 
+
+  // ---------------------------------------------
+  // Render Page
+  // ---------------------------------------------
   return (
     <>
       <SearchBox
@@ -54,16 +90,32 @@ function ProductPage() {
       />
 
       <div className={styles.container}>
+
+        {/* PRODUCT LIST */}
         <div className={styles.product}>
-          {loading ? (
+          {isLoading && products.length === 0 ? (
             <Loading />
           ) : displayed.length === 0 ? (
-            <div className={styles.noResult}>نتیجه‌ای یافت نشد</div>
+            <div className={styles.noResult}>
+              نتیجه‌ای یافت نشد
+              <button onClick={handleResetFilters} className={styles.resetBtn}>
+                بازنشانی جستجو
+              </button>
+            </div>
           ) : (
             displayed.map((p) => <Card key={p.id || p._id} data={p} />)
           )}
+
+          {/* Refetching Indicator */}
+          {isRefetching && (
+            <div className={styles.refetching}>
+              به‌روزرسانی نتایج...
+            </div>
+          )}
         </div>
 
+
+        {/* SIDEBAR */}
         <Sidebar query={query} setQuery={setQuery} />
       </div>
     </>
@@ -71,4 +123,5 @@ function ProductPage() {
 }
 
 export default ProductPage;
+
 

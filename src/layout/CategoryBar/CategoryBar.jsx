@@ -1,17 +1,31 @@
+import { useQuery } from "@tanstack/react-query";
+import categoryService from "@/services/categoryService";
+import CategoryCard from "./CategoryCard";
 
-import styles from "./CategoryBar.module.css";
+export default function CategoryBar() {
+  const { data: categories = [], isLoading } = useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const res = await categoryService.getAll();
+      return res.items ?? [];
+    },
+  });
 
-function CategoryBar({ categories }) {
+  if (isLoading) return <p>در حال بارگذاری دسته‌ها...</p>;
+
   return (
-    <div className={styles.wrapper}>
-      {categories.map(cat => (
-        <div key={cat.id} className={styles.item}>
-          <img src={cat.icon} alt={cat.title} className={styles.icon} />
-          <span>{cat.title}</span>
-        </div>
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 p-4">
+      {categories.map((cat) => (
+        <CategoryCard
+          key={cat.id}
+          id={cat.id}
+          title={cat.title}
+          imageUrl={cat.imageUrl}
+        />
       ))}
     </div>
   );
 }
 
-export default CategoryBar;
+
+
