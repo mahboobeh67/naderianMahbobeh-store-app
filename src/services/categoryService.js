@@ -2,7 +2,7 @@ import apiClient from "@/services/apiClient";
 
 const categoryService = {
   getAll() {
-    return apiClient.get("/categories");
+    return apiClient.getAll("/categories");
   },
   getOne(id) {
     return apiClient.get(`/categories/${id}`);

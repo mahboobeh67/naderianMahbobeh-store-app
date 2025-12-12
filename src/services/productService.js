@@ -3,7 +3,7 @@ import apiClient from "./apiClient";
 
 const productService = {
   async getList(params) {
-    return apiClient.get("/products", { params });
+    return apiClient.getAll("/products", { params });
   },
   async getOne(id) {
     return apiClient.get(`/products/${id}`);

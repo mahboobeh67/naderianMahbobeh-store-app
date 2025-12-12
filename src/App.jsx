@@ -19,6 +19,7 @@ import Categories from "./pages/admin/Categories";
 
 // ========== NEW (customer storefront page for categories) ==========
 import CategoryStorePage from "./layout/CategoryBar/CategoryBar";
+import NotFoundPage from "./pages/404";
 
 
 const App = () => {
@@ -76,6 +77,8 @@ const App = () => {
 
       {/* 403 Page */}
       <Route path="/403" element={<div>403 - دسترسی ندارید!</div>} />
+      <Route path="*" element={<NotFoundPage />} />
+      
     </Routes>
   );
 };

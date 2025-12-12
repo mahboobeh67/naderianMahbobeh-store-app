@@ -8,7 +8,7 @@ import { getAccessToken, updateAccessToken, clearTokens } from "./tokenStorage";
 const apiClient = axios.create({
   baseURL:
     import.meta.env.MODE === "development"
-      ? "http://localhost:3002/api" // backend port 3002
+      ? "http://localhost:3000/api" // backend port 3002
       : "http://localhost:3000/api",
   withCredentials: true,
 });
