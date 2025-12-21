@@ -1,17 +1,13 @@
-import { useProducts, useCategories } from "@/hooks"
+import { useProducts} from "@/hooks"
 import Pagination from "../../components/ui/Pagination"
 import { useState } from "react"
 import AddProduct from "../../components/AddProduct"
 import Modal from "../../components/ui/Modal"
 import ProductTable from "../../components/ui/ProductTable"
-import Card from "../../components/Card"
 import ProductList from "../../components/ProductListPage"
 
 export default function Homepage() {
-  const { 
-    data: categories = [], 
-    isLoading: categoriesLoading 
-  } = useCategories()
+
 
   const [page, setPage] = useState(1)
   const [openModal, setOpenModal] = useState(false)
@@ -28,7 +24,7 @@ export default function Homepage() {
     <div>
       <main style={{ padding: "20px" }}>
         <h1>به صفحه اصلی خوش اومدی! 🚀</h1>
-
+        
         {productsLoading && <p>در حال بارگذاری محصولات...</p>}
         {productsError && <p>خطا در دریافت محصولات!</p>}
 
